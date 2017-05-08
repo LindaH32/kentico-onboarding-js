@@ -12,6 +12,7 @@ export interface IListDataProps {
 
 export interface IListCallbackProps {
   onAddItem: (text: string) => IAction;
+  fetchItems: () => (dispatch: Dispatch) => Promise<IAction>;
 }
 
 const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
