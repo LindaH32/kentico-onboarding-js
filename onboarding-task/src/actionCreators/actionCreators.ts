@@ -1,3 +1,4 @@
+import * as fetch from 'isomorphic-fetch';
 import {
   DELETE_ITEM,
   ENABLE_EDIT_ITEM,
@@ -41,3 +42,12 @@ export const receiveItems = (json: any): IAction => ({
   type: RECEIVE_ITEMS,
   payload: { items: json.data.children },
 });
+
+export const fetchItems = () => ((dispatch: Dispatch) => {
+    dispatch(requestItems());
+
+    return fetch('http://localhost:50458/api/v1/ListItems')
+      .then(response => response.json())
+      .then(json => dispatch(receiveItems(json)));
+  }
+);
