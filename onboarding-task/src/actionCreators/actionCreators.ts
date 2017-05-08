@@ -1,4 +1,11 @@
-import { DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes';
+import {
+  DELETE_ITEM,
+  ENABLE_EDIT_ITEM,
+  SAVE_CHANGES_TO_ITEM,
+  CANCEL_CHANGES_TO_ITEM,
+  REQUEST_ITEMS,
+  RECEIVE_ITEMS,
+} from '../constants/actionTypes';
 import { addItemFactory } from './addItemFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
@@ -23,4 +30,14 @@ export const saveChangesToItem = (id: string, text: string): IAction => ({
 export const cancelChangesToItem = (id: string): IAction => ({
   type: CANCEL_CHANGES_TO_ITEM,
   payload: { id },
+});
+
+export const requestItems = (): IAction => ({
+  type: REQUEST_ITEMS,
+  payload: {},
+});
+
+export const receiveItems = (json: any): IAction => ({
+  type: RECEIVE_ITEMS,
+  payload: { items: json.data.children },
 });
