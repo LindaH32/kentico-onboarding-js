@@ -40,7 +40,7 @@ export const requestItems = (): IAction => ({
 
 export const receiveItems = (json: any): IAction => ({
   type: RECEIVE_ITEMS,
-  payload: { items: json.data.children },
+  payload: { items: json.children },
 });
 
 export const fetchItems = () => ((dispatch: Dispatch) => {

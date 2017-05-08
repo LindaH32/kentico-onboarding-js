@@ -8,6 +8,7 @@ import { IAction } from '../actionCreators/IAction';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
+  isFetching: boolean;
 }
 
 export interface IListCallbackProps {
@@ -18,6 +19,7 @@ export interface IListCallbackProps {
 const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     itemIds,
     onAddItem,
+    fetchItems,
   }) => {
   const renderedRows = itemIds.valueSeq().map((itemId: string, index: number) => (
     <li key={itemId} className="list-group-item">
@@ -25,10 +27,18 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     </li>
   ));
 
+  const logJsonOut = () => {
+    fetchItems();
+    console.log('List.tsx ');
+  };
+
+  const spinner = <img src={require('../../assets/running_spinner.gif')} />;
+  const rowsOrSpinner = !this.isFetching ? renderedRows : spinner;
   return (
     <div className="row">
       <div className="row">
         <div className="col-sm-12">
+          <button className="btn btn-lg btn-info" onClick={logJsonOut}>Click ME</button>
           <p className="lead text-center">
             <b>Note: </b>
             Try to make the solution easily extensible (e.g. more displayed fields per item).
@@ -39,7 +49,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ul id="todo-list" className="list-group">
-            {renderedRows}
+            {rowsOrSpinner}
             <li className="list-group-item">
               <AddItem onAdd={onAddItem} />
             </li>
@@ -54,6 +64,7 @@ List.displayName = 'List';
 List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSet.isRequired,
   onAddItem: PropTypes.func.isRequired,
+  fetchItems: PropTypes.any.isRequired,
 };
 
 export { List };
