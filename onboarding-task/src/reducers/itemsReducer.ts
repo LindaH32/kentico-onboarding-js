@@ -10,16 +10,21 @@ import {
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
+import { Item } from '../models/Item';
+
+interface IReceivedItem {
+  Id: string;
+  Text: string;
+}
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
     case RECEIVE_ITEMS: {
-      const items = action.payload.items;
-      console.log('itemsReducer.tsx: items received', items);
-      const imItems = Map();
-      const spreadItems = items.map((object: any) => imItems.set(object.Id, object.Text));
-      console.log('itemsReducer.tsx spread: ', spreadItems);
-      return state.clear().merge(...items);
+      console.log('itemsReducer.tsx: items received');
+      const receivedObjects = action.payload.items;
+      const identifiedItems = receivedObjects.map((value: IReceivedItem) =>
+        [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);
+      return state.clear().merge(identifiedItems);
     }
 
     case ADD_ITEM:
