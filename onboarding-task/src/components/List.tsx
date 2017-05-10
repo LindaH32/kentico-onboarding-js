@@ -33,7 +33,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
   const prepareList = () => (
     <ul id="todo-list" className="list-group">
       {prepareRows()}
-      <li>
+      <li className="list-group-item">
         <AddItem isFetching={isFetching} onAdd={onAddItem} />
       </li>
     </ul>
