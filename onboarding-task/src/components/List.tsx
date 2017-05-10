@@ -5,6 +5,7 @@ import { OrderedSet } from 'immutable';
 import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
 import { Loader } from './Loader';
+import { ListItem } from '../containers/ListItemContainer';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
@@ -22,7 +23,25 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     fetchItems,
     isFetching,
   }) => {
-  const logJsonOut = () => {
+  const prepareRows = () => (
+    itemIds.valueSeq().map((itemId: string, index: number) => (
+      <li key={itemId} className="list-group-item">
+        <ListItem itemId={itemId} index={index + 1} />
+      </li>
+  )));
+
+  const prepareList = () => (
+    <ul id="todo-list" className="list-group">
+      {prepareRows()}
+      <li>
+        <AddItem isFetching={isFetching} onAdd={onAddItem} />
+      </li>
+    </ul>
+  );
+
+  const listIjfNotLoading = !isFetching ? prepareList() : null;
+
+  const testFetchItem = () => {
     fetchItems();
     console.log('List.tsx ');
   };
@@ -31,7 +50,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     <div className="row">
       <div className="row">
         <div className="col-sm-12">
-          <button className="btn btn-lg btn-info" onClick={logJsonOut}>Click ME</button>
+          <button className="btn btn-lg btn-info" onClick={testFetchItem}>Click ME</button>
           <p className="lead text-center">
             <b>Note: </b>
             Try to make the solution easily extensible (e.g. more displayed fields per item).
@@ -41,12 +60,8 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
 
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
-          <ul id="todo-list" className="list-group">
-            <Loader itemIds={itemIds} isFetching={isFetching}/>
-            <li className="list-group-item">
-              <AddItem isFetching={isFetching} onAdd={onAddItem} />
-            </li>
-          </ul>
+          <Loader isFetching={isFetching}/>
+          {listIjfNotLoading}
         </div>
       </div>
     </div>
