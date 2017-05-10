@@ -21,7 +21,7 @@ class AddItem extends React.PureComponent<AddItemProps, IAddItemState> {
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
-    isFetching: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
   };
 
   constructor(props: AddItemProps) {

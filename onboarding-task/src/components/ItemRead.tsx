@@ -11,10 +11,13 @@ interface IItemReadCallbackProps {
   onDoubleClick: () => IAction;
 }
 
-const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackProps> = (props) => (
-  <div onDoubleClick={props.onDoubleClick} >
-    <span>{props.item.index}. </span>
-    {props.item.text}
+const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackProps> = ({
+  onDoubleClick,
+  item,
+}) => (
+  <div onDoubleClick={onDoubleClick} >
+    <span>{item.index}. </span>
+    {item.text}
   </div>
   );
 

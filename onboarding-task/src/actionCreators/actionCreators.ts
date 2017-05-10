@@ -38,7 +38,7 @@ export const requestItems = (): IAction => ({
   payload: {},
 });
 
-export const receiveItems = (json: any): IAction => ({
+const receiveItems = (json: any): IAction => ({
   type: RECEIVE_ITEMS,
   payload: { items: json.children },
 });
