@@ -13,8 +13,14 @@ import { IItem } from '../models/IItem';
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
-    case RECEIVE_ITEMS:
-      return state.clear().merge(action.payload.items);
+    case RECEIVE_ITEMS: {
+      const items = action.payload.items;
+      console.log('itemsReducer.tsx: items received', items);
+      const imItems = Map();
+      const spreadItems = items.map((object: any) => imItems.set(object.Id, object.Text));
+      console.log('itemsReducer.tsx spread: ', spreadItems);
+      return state.clear().merge(...items);
+    }
 
     case ADD_ITEM:
       return state.set(action.payload.id, itemReducer(undefined, action));

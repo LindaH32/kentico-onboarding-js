@@ -59,7 +59,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
       </div>
 
       <div className="row">
-        <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <div className=" col-sm-12 col-md-offset-2 col-md-8">
           <Loader isFetching={isFetching}/>
           {listIjfNotLoading}
         </div>
@@ -72,7 +72,7 @@ List.displayName = 'List';
 List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSet.isRequired,
   onAddItem: PropTypes.func.isRequired,
-  fetchItems: PropTypes.any.isRequired,
+  fetchItems: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
 };
 
