@@ -6,18 +6,25 @@ interface IAddItemCallbackProps {
   onAdd: (text: string) => IAction;
 }
 
+interface IAddItemDataProps {
+  isFetching: boolean;
+}
+
 interface IAddItemState {
   text: string;
 }
 
-class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> {
+type AddItemProps = IAddItemCallbackProps & IAddItemDataProps;
+
+class AddItem extends React.PureComponent<AddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
+    isFetching: PropTypes.func.isRequired,
   };
 
-  constructor(props: IAddItemCallbackProps) {
+  constructor(props: AddItemProps) {
     super(props);
     this.state = { text: '' };
   }
@@ -33,8 +40,8 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
   render() {
     return (
       <div className="form-inline">
-        <input className="form-control" onChange={this._handleChange} value={this.state.text} />
-        <button type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
+        <input disabled={this.props.isFetching}  className="form-control" onChange={this._handleChange} value={this.state.text} />
+        <button disabled={this.props.isFetching}  type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
       </div>
     );
   }

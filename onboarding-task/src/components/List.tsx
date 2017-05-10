@@ -20,6 +20,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     itemIds,
     onAddItem,
     fetchItems,
+    isFetching,
   }) => {
   const renderedRows = itemIds.valueSeq().map((itemId: string, index: number) => (
     <li key={itemId} className="list-group-item">
@@ -33,7 +34,8 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
   };
 
   const spinner = <img src={require('../../assets/running_spinner.gif')} />;
-  const rowsOrSpinner = !this.isFetching ? renderedRows : spinner;
+  const rowsOrSpinner = !isFetching ? renderedRows : spinner;
+
   return (
     <div className="row">
       <div className="row">
@@ -51,7 +53,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
           <ul id="todo-list" className="list-group">
             {rowsOrSpinner}
             <li className="list-group-item">
-              <AddItem onAdd={onAddItem} />
+              <AddItem isFetching={isFetching} onAdd={onAddItem} />
             </li>
           </ul>
         </div>
