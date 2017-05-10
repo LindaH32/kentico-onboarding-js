@@ -3,8 +3,8 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 import * as PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
 import { AddItem } from './AddItem';
-import { ListItem } from '../containers/ListItemContainer';
 import { IAction } from '../actionCreators/IAction';
+import { Loader } from './Loader';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
@@ -22,19 +22,10 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
     fetchItems,
     isFetching,
   }) => {
-  const renderedRows = itemIds.valueSeq().map((itemId: string, index: number) => (
-    <li key={itemId} className="list-group-item">
-      <ListItem itemId={itemId} index={index + 1} />
-    </li>
-  ));
-
   const logJsonOut = () => {
     fetchItems();
     console.log('List.tsx ');
   };
-
-  const spinner = <img src={require('../../assets/running_spinner.gif')} />;
-  const rowsOrSpinner = !isFetching ? renderedRows : spinner;
 
   return (
     <div className="row">
@@ -51,7 +42,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <ul id="todo-list" className="list-group">
-            {rowsOrSpinner}
+            <Loader itemIds={itemIds} isFetching={isFetching}/>
             <li className="list-group-item">
               <AddItem isFetching={isFetching} onAdd={onAddItem} />
             </li>
@@ -67,6 +58,7 @@ List.propTypes = {
   itemIds: ImmutablePropTypes.orderedSet.isRequired,
   onAddItem: PropTypes.func.isRequired,
   fetchItems: PropTypes.any.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export { List };
