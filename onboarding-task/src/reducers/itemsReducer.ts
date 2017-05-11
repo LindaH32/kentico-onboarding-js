@@ -20,11 +20,13 @@ interface IReceivedItem {
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
     case RECEIVE_ITEMS: {
-      console.log('itemsReducer.tsx: items received');
       const receivedObjects = action.payload.items;
       const identifiedItems = receivedObjects.map((value: IReceivedItem) =>
         [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);
-      return state.clear().merge(identifiedItems);
+      console.log('itemsReducer.tsx: items received: ', identifiedItems);
+      const stateItems = Map<string, IItem>(identifiedItems);
+      console.log('itemsReducer.tsx mapped items: ', stateItems);
+      return state.clear().merge(stateItems);
     }
 
     case ADD_ITEM:
