@@ -1,5 +1,4 @@
 import { Map } from 'immutable';
-import { itemReducer } from './itemReducer';
 import {
   ADD_ITEM,
   DELETE_ITEM,
@@ -11,11 +10,8 @@ import {
 import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
 import { Item } from '../models/Item';
-
-export interface IReceivedItem {
-  Id: string;
-  Text: string;
-}
+import { itemReducer } from './itemReducer';
+import { IReceivedItem } from './IRecievedItem';
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {

@@ -1,7 +1,7 @@
 import { OrderedSet } from 'immutable';
 import { ADD_ITEM, DELETE_ITEM, RECEIVE_ITEMS } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
-import { IReceivedItem } from './itemsReducer';
+import { IReceivedItem } from './IRecievedItem';
 
 const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {
