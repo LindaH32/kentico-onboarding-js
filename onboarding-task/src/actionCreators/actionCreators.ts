@@ -8,6 +8,7 @@ import {
   RECEIVE_ITEMS,
 } from '../constants/actionTypes';
 import { addItemFactory } from './addItemFactory';
+import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 
@@ -33,21 +34,20 @@ export const cancelChangesToItem = (id: string): IAction => ({
   payload: { id },
 });
 
-const requestItems = (): IAction => ({
+export const requestItems = (): IAction => ({
   type: REQUEST_ITEMS,
   payload: {},
 });
 
-const receiveItems = (json: object): IAction => ({
+export const receiveItems = (json: object): IAction => ({
   type: RECEIVE_ITEMS,
   payload: { items: json },
 });
 
-export const fetchItems = () => ((dispatch: Dispatch) => {
-    dispatch(requestItems());
-
-    return fetch('http://localhost:50458/api/v1/ListItems')
-      .then(response => response.json())
-      .then(json => dispatch(receiveItems(json)));
-  }
+export const fetchItems = fetchItemsFactory(() => (
+  fetch('http://localhost:50458/api/v1/ListItems')
+    .then(response => response.json())
+  )
 );
+
+
