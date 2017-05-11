@@ -17,63 +17,78 @@ export interface IListCallbackProps {
   fetchItems: () => (dispatch: Dispatch) => Promise<IAction>;
 }
 
-const List: React.StatelessComponent<IListDataProps & IListCallbackProps> = ({
-    itemIds,
-    onAddItem,
-    fetchItems,
-    isFetching,
-  }) => {
-  const prepareRows = () => (
-    itemIds.valueSeq().map((itemId: string, index: number) => (
+type ListProps = IListDataProps & IListCallbackProps;
+
+interface  IListState {
+}
+
+class List extends React.PureComponent<ListProps, IListState> {
+  static displayName = 'List';
+
+  static propTypes = {
+  itemIds: ImmutablePropTypes.orderedSet.isRequired,
+  onAddItem: PropTypes.func.isRequired,
+  fetchItems: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  };
+
+  constructor(props: ListProps) {
+    super(props);
+  }
+
+  componentWillMount() {
+    this.props.fetchItems();
+  }
+
+  _prepareRows = () => (
+      this.props.itemIds.valueSeq().map((itemId: string, index: number) => (
       <li key={itemId} className="list-group-item">
         <ListItem itemId={itemId} index={index + 1} />
       </li>
   )));
 
-  const prepareList = () => (
+  _prepareList = () => (
     <ul id="todo-list" className="list-group">
-      {prepareRows()}
+      {this._prepareRows()}
       <li className="list-group-item">
-        <AddItem isFetching={isFetching} onAdd={onAddItem} />
+        <AddItem isFetching={this.props.isFetching} onAdd={this.props.onAddItem} />
       </li>
     </ul>
   );
 
-  const listIjfNotLoading = !isFetching ? prepareList() : null;
+  _listIfIsfNotLoading = () =>
+    !this.props.isFetching ? this._prepareList() : null;
 
-  const testFetchItem = () => {
-    fetchItems();
+  testFetchItem = () => {
+    this.props.fetchItems();
     console.log('List.tsx ');
   };
-
-  return (
-    <div className="row">
+  render() {
+    return (
       <div className="row">
-        <div className="col-sm-12">
-          <button className="btn btn-lg btn-info" onClick={testFetchItem}>Click ME</button>
-          <p className="lead text-center">
-            <b>Note: </b>
-            Try to make the solution easily extensible (e.g. more displayed fields per item).
-          </p>
+        <div className="row">
+          <div className="col-sm-12">
+            <button className="btn btn-lg btn-info"
+                    onClick={this.testFetchItem}>Click ME
+            </button>
+            <p className="lead text-center">
+              <b>Note: </b>
+              Try to make the solution easily extensible (e.g. more displayed fields per item).
+            </p>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className=" col-sm-12 col-md-offset-2 col-md-8">
+            <Loader isFetching={this.props.isFetching} />
+            {this._listIfIsfNotLoading()}
+          </div>
         </div>
       </div>
-
-      <div className="row">
-        <div className=" col-sm-12 col-md-offset-2 col-md-8">
-          <Loader isFetching={isFetching}/>
-          {listIjfNotLoading}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
-List.displayName = 'List';
-List.propTypes = {
-  itemIds: ImmutablePropTypes.orderedSet.isRequired,
-  onAddItem: PropTypes.func.isRequired,
-  fetchItems: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-};
+
 
 export { List };
