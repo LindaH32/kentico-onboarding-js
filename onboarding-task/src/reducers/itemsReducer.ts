@@ -12,7 +12,7 @@ import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
 import { Item } from '../models/Item';
 
-interface IReceivedItem {
+export interface IReceivedItem {
   Id: string;
   Text: string;
 }
@@ -23,10 +23,7 @@ const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: 
       const receivedObjects = action.payload.items;
       const identifiedItems = receivedObjects.map((value: IReceivedItem) =>
         [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);
-      console.log('itemsReducer.tsx: items received: ', identifiedItems);
-      const stateItems = Map<string, IItem>(identifiedItems);
-      console.log('itemsReducer.tsx mapped items: ', stateItems);
-      return state.clear().merge(stateItems);
+      return state.clear().merge(identifiedItems);
     }
 
     case ADD_ITEM:
