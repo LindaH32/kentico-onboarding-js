@@ -33,7 +33,7 @@ export const cancelChangesToItem = (id: string): IAction => ({
   payload: { id },
 });
 
-export const requestItems = (): IAction => ({
+const requestItems = (): IAction => ({
   type: REQUEST_ITEMS,
   payload: {},
 });
