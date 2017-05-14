@@ -1,5 +1,5 @@
 import { deleteItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
-import { addItemFactory } from '../../src/actionCreators/addItemFactory';
+import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import { ADD_ITEM, DELETE_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
