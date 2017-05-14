@@ -46,7 +46,6 @@ export const receiveItems = (json: object): IAction => ({
 
 export const fetchItems = fetchItemsFactory(() => (
   fetch('http://localhost:50458/api/v1/ListItems')
-    .then(response => response.json())
   )
 );
 
