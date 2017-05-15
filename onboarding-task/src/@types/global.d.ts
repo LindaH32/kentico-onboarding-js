@@ -5,7 +5,9 @@
 import { IAction } from '../actionCreators/IAction';
 
 declare global {
-  type Dispatch = (action: any) => any;
+  type DispatchAction = (action: IAction ) => IAction;
+  type DispatchThunk = (thunkAction: (dispatch: DispatchAction) => Promise<IAction>) => Promise<IAction>;
+  type Dispatch = DispatchAction & DispatchThunk;
 
   interface IRecordFunctions<TRecordData, TRecordFunctions> {
     // We can return the data of a record

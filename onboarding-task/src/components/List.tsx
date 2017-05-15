@@ -14,7 +14,7 @@ export interface IListDataProps {
 
 export interface IListCallbackProps {
   onAddItem: (text: string) => IAction;
-  fetchItems: () => (dispatch: Dispatch) => Promise<IAction>;
+  fetchItems: () => Promise<IAction>;
 }
 
 type ListProps = IListDataProps & IListCallbackProps;
