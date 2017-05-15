@@ -19,7 +19,7 @@ const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: 
       const receivedObjects = action.payload.items;
       const identifiedItems = receivedObjects.map((value: IReceivedItem) =>
         [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);
-      return state.clear().merge(identifiedItems);
+      return state.merge(identifiedItems);
     }
 
     case ADD_ITEM:

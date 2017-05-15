@@ -8,7 +8,7 @@ const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action
     case RECEIVE_ITEMS: {
       const receivedObjects = action.payload.items;
       const itemIds = receivedObjects.map((value: IReceivedItem) => value.Id);
-      return state.clear().merge(itemIds);
+      return state.merge(itemIds);
     }
     case ADD_ITEM:
       return state.add(action.payload.id);

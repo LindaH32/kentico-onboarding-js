@@ -7,7 +7,7 @@ import {
   REQUEST_ITEMS,
   RECEIVE_ITEMS,
 } from '../constants/actionTypes';
-import { serverRoute, resourceRoute } from '../constants/routes';
+import { serverRoute, listItemsRoute } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
@@ -46,8 +46,15 @@ export const receiveItems = (json: object): IAction => ({
 });
 
 export const fetchItems = fetchItemsFactory(() => (
-  fetch(serverRoute + resourceRoute)
+  fetch(serverRoute + listItemsRoute)
   )
+);
+
+export const postItems = fetchItemsFactory(() =>
+  fetch(serverRoute + listItemsRoute, {
+    method: 'POST',
+    body: { text: 'newnewText' },
+  })
 );
 
 
