@@ -7,6 +7,7 @@ import {
   REQUEST_ITEMS,
   RECEIVE_ITEMS,
 } from '../constants/actionTypes';
+import { serverRoute, resourceRoute } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
@@ -45,7 +46,7 @@ export const receiveItems = (json: object): IAction => ({
 });
 
 export const fetchItems = fetchItemsFactory(() => (
-  fetch('http://localhost:50458/api/v1/ListItems')
+  fetch(serverRoute + resourceRoute)
   )
 );
 

@@ -122,5 +122,7 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+
+  "proxy": "http://localhost:50458"
 }
