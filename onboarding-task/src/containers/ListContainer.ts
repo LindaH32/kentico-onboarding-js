@@ -10,6 +10,7 @@ interface IListContainerProps {}
 const mapStateToProps = (state: IAppState): IListDataProps => ({
   itemIds: state.itemIds,
   isFetching: state.isFetching,
+  errorMessage: state.errorMessage,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbackProps => ({
