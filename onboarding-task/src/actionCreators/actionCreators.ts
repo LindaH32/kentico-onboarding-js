@@ -4,12 +4,13 @@ import {
   ENABLE_EDIT_ITEM,
   SAVE_CHANGES_TO_ITEM,
   CANCEL_CHANGES_TO_ITEM,
-  REQUEST_ITEMS,
-  RECEIVE_ITEMS,
+  FETCH_ITEMS_REQUEST,
+  FETCH_ITEMS_SUCCESS,
+  FETCH_ITEMS_FAILURE,
 } from '../constants/actionTypes';
-import { serverRoute, listItemsRoute } from '../constants/routes';
+import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
-import { fetchItemsFactory } from './fetchItemsFactory';
+import { fetchItemsFactory, postItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 
@@ -36,25 +37,27 @@ export const cancelChangesToItem = (id: string): IAction => ({
 });
 
 export const requestItems = (): IAction => ({
-  type: REQUEST_ITEMS,
+  type: FETCH_ITEMS_REQUEST,
   payload: {},
 });
 
 export const receiveItems = (json: object): IAction => ({
-  type: RECEIVE_ITEMS,
+  type: FETCH_ITEMS_SUCCESS,
   payload: { items: json },
 });
 
+export const failToReceiveItems = (errorMessage: string): IAction => ({
+  type: FETCH_ITEMS_FAILURE,
+  payload: { errorMessage: errorMessage},
+});
+
 export const fetchItems = fetchItemsFactory(() => (
-  fetch(serverRoute + listItemsRoute)
+  fetch(SERVER_ROUTE + LIST_ITEM_ROUTE)
   )
 );
 
-export const postItems = fetchItemsFactory(() =>
-  fetch(serverRoute + listItemsRoute, {
-    method: 'POST',
-    body: { text: 'newnewText' },
-  })
+export const postItems = postItemsFactory(() =>
+  fetch(SERVER_ROUTE + LIST_ITEM_ROUTE)
 );
 
 

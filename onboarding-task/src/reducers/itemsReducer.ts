@@ -5,7 +5,7 @@ import {
   ENABLE_EDIT_ITEM,
   SAVE_CHANGES_TO_ITEM,
   CANCEL_CHANGES_TO_ITEM,
-  RECEIVE_ITEMS
+  FETCH_ITEMS_SUCCESS
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
@@ -15,7 +15,7 @@ import { IReceivedItem } from './IRecievedItem';
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
-    case RECEIVE_ITEMS: {
+    case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
       const identifiedItems = receivedObjects.map((value: IReceivedItem) =>
         [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);

@@ -1,11 +1,11 @@
 import { OrderedSet } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM, RECEIVE_ITEMS } from '../constants/actionTypes';
+import { ADD_ITEM, DELETE_ITEM, FETCH_ITEMS_SUCCESS } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IReceivedItem } from './IRecievedItem';
 
 const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {
-    case RECEIVE_ITEMS: {
+    case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
       const itemIds = receivedObjects.map((value: IReceivedItem) => value.Id);
       return state.merge(itemIds);

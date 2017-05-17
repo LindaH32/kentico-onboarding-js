@@ -13,8 +13,8 @@ import {
   ENABLE_EDIT_ITEM,
   SAVE_CHANGES_TO_ITEM,
   CANCEL_CHANGES_TO_ITEM,
-  REQUEST_ITEMS,
-  RECEIVE_ITEMS,
+  FETCH_ITEMS_REQUEST,
+  FETCH_ITEMS_SUCCESS,
 } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
@@ -63,7 +63,7 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to request items', () => {
-    const expectedAction = { type: REQUEST_ITEMS, payload: {} };
+    const expectedAction = { type: FETCH_ITEMS_REQUEST, payload: {} };
 
     const testedAction = requestItems();
 
@@ -72,7 +72,7 @@ describe('Correctly creates actions', () => {
 
   it('Action to receive items', () => {
     const jsonItem = '[{"Id":"98dbde18-639e-49a6-8e51-603ceb2ae92d","Text":"text"}]';
-    const expectedAction = { type: RECEIVE_ITEMS, payload: { items: jsonItem } };
+    const expectedAction = { type: FETCH_ITEMS_SUCCESS, payload: { items: jsonItem } };
 
     const testedAction = receiveItems(jsonItem);
 

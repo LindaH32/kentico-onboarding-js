@@ -1,11 +1,11 @@
 import { IAction } from '../actionCreators/IAction';
-import { REQUEST_ITEMS, RECEIVE_ITEMS } from '../constants/actionTypes';
+import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS } from '../constants/actionTypes';
 const fetchingFlagReducer = (state = false, action: IAction): boolean => {
   switch (action.type) {
-    case REQUEST_ITEMS:
+    case FETCH_ITEMS_REQUEST:
       return state = true;
 
-    case RECEIVE_ITEMS:
+    case FETCH_ITEMS_SUCCESS:
       return state = false;
 
     default:
