@@ -5,9 +5,9 @@ interface IFetchErrorProps {
   errorMessage: any;
 }
 
-const FetchError: React.StatelessComponent<IFetchErrorProps> = (errorMessage) => (
+const FetchError: React.StatelessComponent<IFetchErrorProps> = ({ errorMessage }) => (
   <div className="alert alert-danger">
-    <p>Something went wrong: {errorMessage}</p>
+    <strong>Something went wrong:</strong> {errorMessage}
   </div>
 );
 

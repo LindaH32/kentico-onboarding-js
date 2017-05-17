@@ -6,10 +6,12 @@ import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
 import { Loader } from './Loader';
 import { ListItem } from '../containers/ListItemContainer';
+import { FetchError } from './FetchError';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
   isFetching: boolean;
+  errorMessage: any;
 }
 
 export interface IListCallbackProps {
@@ -19,8 +21,7 @@ export interface IListCallbackProps {
 
 type ListProps = IListDataProps & IListCallbackProps;
 
-interface  IListState {
-}
+interface  IListState {}
 
 class List extends React.PureComponent<ListProps, IListState> {
   static displayName = 'List';
@@ -30,6 +31,7 @@ class List extends React.PureComponent<ListProps, IListState> {
   onAddItem: PropTypes.func.isRequired,
   fetchItems: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.any,
   };
 
   constructor(props: ListProps) {
@@ -78,6 +80,7 @@ class List extends React.PureComponent<ListProps, IListState> {
           </div>
         </div>
 
+        <FetchError errorMessage="some error will hopefully NOT be inserted here in the future"/>
         <div className="row">
           <div className=" col-sm-12 col-md-offset-2 col-md-8">
             <Loader isFetching={this.props.isFetching} />
