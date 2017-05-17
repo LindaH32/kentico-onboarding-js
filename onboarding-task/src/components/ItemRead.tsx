@@ -19,7 +19,7 @@ const ItemRead: React.StatelessComponent<IItemReadDataProps & IItemReadCallbackP
     <span>{item.index}. </span>
     {item.text}
   </div>
-  );
+);
 
 ItemRead.displayName = 'ItemRead';
 ItemRead.propTypes = {
