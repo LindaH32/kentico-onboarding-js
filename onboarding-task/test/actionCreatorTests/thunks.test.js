@@ -7,7 +7,7 @@ describe('Correctly resolves promises: ', () => {
       reject('Rejected');
     });
 
-    // const fetchItems = fetchItemsFactory(() => promise);
+    // const fetchItems = fetchItemsFactory(() => promise.resolve);
     // const disp = () => undefined;
     promise
       .then(() => done())

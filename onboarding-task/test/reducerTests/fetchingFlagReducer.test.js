@@ -1,9 +1,9 @@
 import { fetchingFlagReducer } from '../../src/reducers/fetchingFlagReducer.ts';
-import { REQUEST_ITEMS, RECEIVE_ITEMS } from '../../src/constants/actionTypes.ts';
+import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly changes the fetch items flag', () => {
   it('changes the fetchingFlag when requesting items to true', () => {
-    const requestAction = { type: REQUEST_ITEMS };
+    const requestAction = { type: FETCH_ITEMS_REQUEST };
 
     const tested = fetchingFlagReducer(undefined, requestAction);
 
@@ -11,7 +11,7 @@ describe('Correctly changes the fetch items flag', () => {
   });
 
   it('chages the fetchingFlag when items are received to false', () => {
-    const requestAction = { type: RECEIVE_ITEMS };
+    const requestAction = { type: FETCH_ITEMS_SUCCESS };
 
     const tested = fetchingFlagReducer(true, requestAction);
 
