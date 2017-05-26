@@ -11,7 +11,7 @@ import { FetchError } from './FetchError';
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
   isFetching: boolean;
-  errorMessage: any;
+  errorMessage: string;
 }
 
 export interface IListCallbackProps {
@@ -31,7 +31,7 @@ class List extends React.PureComponent<ListProps, IListState> {
   onAddItem: PropTypes.func.isRequired,
   fetchItems: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.any,
+  errorMessage: PropTypes.string,
   };
 
   constructor(props: ListProps) {
@@ -80,7 +80,7 @@ class List extends React.PureComponent<ListProps, IListState> {
           </div>
         </div>
 
-        <FetchError errorMessage="some error will hopefully NOT be inserted here in the future"/>
+        <FetchError errorMessage={this.props.errorMessage}/>
         <div className="row">
           <div className=" col-sm-12 col-md-offset-2 col-md-8">
             <Loader isFetching={this.props.isFetching} />

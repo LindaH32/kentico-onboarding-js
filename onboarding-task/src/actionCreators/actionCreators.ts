@@ -46,9 +46,9 @@ export const receiveItems = (json: object): IAction => ({
   payload: { items: json },
 });
 
-export const failToReceiveItems = (errorMessage: string): IAction => ({
+export const failToReceiveItems = (error: Error): IAction => ({
   type: FETCH_ITEMS_FAILURE,
-  payload: { errorMessage: errorMessage},
+  payload: { errorMessage: error.message || 'Items were not fetched' },
 });
 
 export const fetchItems = fetchItemsFactory(() => (
