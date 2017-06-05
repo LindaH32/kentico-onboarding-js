@@ -51,10 +51,12 @@ export const failToReceiveItems = (error: Error): IAction => ({
   payload: { errorMessage: error.message || 'Items were not fetched' },
 });
 
-export const fetchItems = fetchItemsFactory(() => (
-  fetch(SERVER_ROUTE + LIST_ITEM_ROUTE)
-  )
-);
+export const fetchItems = fetchItemsFactory({
+  requestFunction: requestItems,
+  fetchFunction: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
+  successFunction: receiveItems,
+  errorFunction: failToReceiveItems,
+});
 
 export const postItems = postItemsFactory(() =>
   fetch(SERVER_ROUTE + LIST_ITEM_ROUTE)
