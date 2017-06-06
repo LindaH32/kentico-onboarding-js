@@ -1,5 +1,5 @@
 import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactory.ts';
-import { requestItems, receiveItems, failToReceiveItems } from '../../src/actionCreators/actionCreators.ts';
+import { requestItems, succeedToReceiveItems, failToReceiveItems } from '../../src/actionCreators/actionCreators.ts';
 
 describe('Correctly resolves promises: ', () => {
   const item = { Id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', Text: 'text' };
@@ -20,14 +20,14 @@ describe('Correctly resolves promises: ', () => {
   const fetchItems = fetchItemsFactory({
     requestFunction: requestItems,
     fetchFunction: () => fetchFunction(),
-    successFunction: receiveItems,
+    successFunction: succeedToReceiveItems,
     errorFunction: failToReceiveItems,
   });
 
   const failingFetchItems = fetchItemsFactory({
     requestFunction: requestItems,
     fetchFunction: () => failingFetchFunction(),
-    successFunction: receiveItems,
+    successFunction: succeedToReceiveItems,
     errorFunction: failToReceiveItems,
   });
 
