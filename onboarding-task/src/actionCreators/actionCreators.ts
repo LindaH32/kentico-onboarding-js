@@ -58,7 +58,7 @@ export const fetchItems = fetchItemsFactory({
   errorFunction: failToReceiveItems,
 });
 
-export const postRequestItems = (text: string): IAction => ({
+export const requestPostItems = (text: string): IAction => ({
   type: POST_ITEMS_REQUEST,
   payload: { text },
 });

@@ -4,8 +4,11 @@ import {
   saveChangesToItem,
   cancelChangesToItem,
   requestItems,
-  receiveItems,
+  succeedToReceiveItems,
   failToReceiveItems,
+  requestPostItems,
+  succeedToPostItems,
+  failToPostItems,
 } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import {
@@ -17,6 +20,9 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
+  POST_ITEMS_REQUEST,
+  POST_ITEMS_SUCCESS,
+  POST_ITEMS_FAILURE,
 } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
@@ -76,7 +82,7 @@ describe('Correctly creates actions', () => {
     const jsonItem = '[{"Id":"98dbde18-639e-49a6-8e51-603ceb2ae92d","Text":"text"}]';
     const expectedAction = { type: FETCH_ITEMS_SUCCESS, payload: { items: jsonItem } };
 
-    const testedAction = receiveItems(jsonItem);
+    const testedAction = succeedToReceiveItems(jsonItem);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -95,6 +101,41 @@ describe('Correctly creates actions', () => {
     const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { errorMessage: 'Items were not fetched' } };
 
     const testedAction = failToReceiveItems(receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when requesting to post items', () => {
+    const expectedAction = { type: POST_ITEMS_REQUEST, payload: { text: 'item text' } };
+
+    const testedAction = requestPostItems('item text');
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when succeeding to post items', () => {
+    const itemId = '98dbde18-639e-49a6-8e51-603ceb2ae92d';
+    const expectedAction = { type: POST_ITEMS_SUCCESS, payload: { itemId } };
+
+    const testedAction = succeedToPostItems(itemId);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed posting the items with an error message', () => {
+    const receivedError = new Error('Failed to post items');
+    const expectedAction = { type: POST_ITEMS_FAILURE, payload: { errorMessage: 'Failed to post items' } };
+
+    const testedAction = failToPostItems(receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed posting the items with no error message', () => {
+    const receivedError = new Error();
+    const expectedAction = { type: POST_ITEMS_FAILURE, payload: { errorMessage: 'Items were not posted' } };
+
+    const testedAction = failToPostItems(receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
