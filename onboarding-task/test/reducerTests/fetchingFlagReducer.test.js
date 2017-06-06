@@ -1,5 +1,5 @@
 import { fetchingFlagReducer } from '../../src/reducers/fetchingFlagReducer.ts';
-import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS } from '../../src/constants/actionTypes.ts';
+import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS, FETCH_ITEMS_FAILURE } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly changes the fetch items flag', () => {
   it('changes the fetchingFlag when requesting items to true', () => {
@@ -12,6 +12,14 @@ describe('Correctly changes the fetch items flag', () => {
 
   it('chages the fetchingFlag when items are received to false', () => {
     const requestAction = { type: FETCH_ITEMS_SUCCESS };
+
+    const tested = fetchingFlagReducer(true, requestAction);
+
+    expect(tested).toEqual(false);
+  });
+
+  it('chages the fetchingFlag when items failed to be fetched to false', () => {
+    const requestAction = { type: FETCH_ITEMS_FAILURE };
 
     const tested = fetchingFlagReducer(true, requestAction);
 
