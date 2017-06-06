@@ -31,7 +31,7 @@ class List extends React.PureComponent<ListProps, IListState> {
   onAddItem: PropTypes.func.isRequired,
   fetchItems: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string,
+  errorMessage: PropTypes.string.isRequired,
   };
 
   constructor(props: ListProps) {
@@ -90,8 +90,6 @@ class List extends React.PureComponent<ListProps, IListState> {
       </div>
     );
   }
-};
-
-
+}
 
 export { List };
