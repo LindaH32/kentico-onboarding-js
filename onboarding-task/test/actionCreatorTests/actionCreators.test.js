@@ -5,6 +5,7 @@ import {
   cancelChangesToItem,
   requestItems,
   receiveItems,
+  failToReceiveItems,
 } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import {
@@ -15,6 +16,7 @@ import {
   CANCEL_CHANGES_TO_ITEM,
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
+  FETCH_ITEMS_FAILURE,
 } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
@@ -75,6 +77,24 @@ describe('Correctly creates actions', () => {
     const expectedAction = { type: FETCH_ITEMS_SUCCESS, payload: { items: jsonItem } };
 
     const testedAction = receiveItems(jsonItem);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed receiving the items with an error message', () => {
+    const receivedError = new Error('Failed to receive items');
+    const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { errorMessage: 'Failed to receive items' } };
+
+    const testedAction = failToReceiveItems(receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed receiving the items with no error message', () => {
+    const receivedError = new Error();
+    const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { errorMessage: 'Items were not fetched' } };
+
+    const testedAction = failToReceiveItems(receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
