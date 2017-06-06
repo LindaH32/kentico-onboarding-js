@@ -61,5 +61,3 @@ export const fetchItems = fetchItemsFactory({
 export const postItems = postItemsFactory(() =>
   fetch(SERVER_ROUTE + LIST_ITEM_ROUTE)
 );
-
-
