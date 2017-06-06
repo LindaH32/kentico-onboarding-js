@@ -13,6 +13,7 @@ import { addItemFactory } from './addItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
+import { postItemsFactory } from './postItemsFactory';
 
 export const addItem = addItemFactory(createGuid);
 
@@ -58,9 +59,9 @@ export const fetchItems = fetchItemsFactory({
   errorFunction: failToReceiveItems,
 });
 
-export const requestPostItems = (text: string): IAction => ({
+export const requestPostItems = (): IAction => ({
   type: POST_ITEMS_REQUEST,
-  payload: { text },
+  payload: {},
 });
 
 export const succeedToPostItems = (id: string): IAction => ({
@@ -71,5 +72,14 @@ export const succeedToPostItems = (id: string): IAction => ({
 export const failToPostItems = (error: Error): IAction => ({
   type: POST_ITEMS_FAILURE,
   payload: { errorMessage: error.message || 'Items were not posted' },
+});
+
+export const postItems = postItemsFactory({
+  requestFunction: requestPostItems,
+  postFunction: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
+    method: 'POST',
+  }),
+  successFunction: succeedToPostItems,
+  errorFunction: failToPostItems,
 });
 
