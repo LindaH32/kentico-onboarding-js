@@ -9,6 +9,10 @@ declare global {
   type DispatchThunk = (thunkAction: (dispatch: DispatchAction) => Promise<IAction>) => Promise<IAction>;
   type Dispatch = DispatchAction & DispatchThunk;
 
+  type Response2 = {
+    json: () => Promise<any>;
+  };
+
   interface IRecordFunctions<TRecordData, TRecordFunctions> {
     // We can return the data of a record
     toObject: () => TRecordData;

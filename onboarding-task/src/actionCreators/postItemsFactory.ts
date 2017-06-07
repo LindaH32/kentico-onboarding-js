@@ -2,7 +2,7 @@ import { IAction } from './IAction';
 
 interface IPostItemsFactoryDependencies {
   requestFunction: () => IAction;
-  postFunction: (options: any) => Promise<Response>;
+  postFunction: (options: any) => Promise<Response2>;
   successFunction: (id: string) => IAction;
   errorFunction: (error: Error) => IAction;
 }
@@ -14,7 +14,7 @@ export const postItemsFactory = (dependencies: IPostItemsFactoryDependencies) =>
       body: { text },
     })
       .then(response => response.json())
-      .then(id => dispatch(dependencies.successFunction(id)))
+      .then(id => dispatch(dependencies.successFunction( id as string)))
       .catch((error: Error) => dispatch(dependencies.errorFunction(error)));
   }
 );
