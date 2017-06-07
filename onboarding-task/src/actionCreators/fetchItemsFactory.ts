@@ -13,5 +13,5 @@ export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) 
   return dependencies.fetchFunction()
     .then(response => response.json())
     .then(json => dispatch(dependencies.successFunction(json)))
-    .catch((error: Error) => dependencies.errorFunction(error));
+    .catch((error: Error) => dispatch(dependencies.errorFunction(error)));
 };

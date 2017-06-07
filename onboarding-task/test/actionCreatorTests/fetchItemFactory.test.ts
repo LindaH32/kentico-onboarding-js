@@ -9,8 +9,8 @@ describe('Correctly resolves fetchItems: ', () => {
   ];
   // const itemJson = JSON.stringify(items);
   const fetchSuccess = () => Promise.resolve({ json: () => Promise.resolve(items) });
+  const fetchFailImmediately = () => Promise.reject(new Error('Items could not be fetched'));
   const fetchFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be fetched')) });
-  const fetchFail2 = () => Promise.reject(new Error('Items could not be fetched'));
   const fakeDispatch = jest.fn((action) => action);
   const fakeAction = (payload: string): IAction => ({ type: 'unknown', payload });
   const fakeRequest = () => fakeAction('request items');
@@ -28,8 +28,9 @@ describe('Correctly resolves fetchItems: ', () => {
   });
 
   it('dispatches requestItems', () => {
-    fetchItems(fetchFail2)(fakeDispatch);
+    fetchItems(fetchSuccess)(fakeDispatch);
     const actual = fakeDispatch.mock.calls[0];
+
     expect(actual[0]).toEqual(fakeRequest());
   });
 
@@ -43,10 +44,18 @@ describe('Correctly resolves fetchItems: ', () => {
       });
   });
 
+  it('fails with error immediately', () => {
+    fetchItems(fetchFailImmediately)(fakeDispatch);
+    const actual = fakeDispatch.mock.calls;
+
+    // expect(fakeDispatch.mock.calls.length).toBe(2);
+    expect(actual).toEqual(fakeFailed());
+  });
+
   it('fails with error', () => fetchItems(fetchFail)(fakeDispatch)
-    .then(error => {
-      const actual = fakeDispatch.mock.calls;
-      console.log('test to fail: ', actual[0][0]);
+    .then(() => {
+      const actual = fakeDispatch.mock.calls[1][0];
+
       expect(actual).toEqual(fakeFailed());
       expect(fakeDispatch.mock.calls.length).toBe(2);
     })
