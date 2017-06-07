@@ -1,52 +1,54 @@
-import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactory.ts';
-import { requestItems, succeedToReceiveItems, failToReceiveItems } from '../../src/actionCreators/actionCreators.ts';
+import { Promise } from 'es6-promise';
+import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactory';
+import { IAction } from '../../src/actionCreators/IAction';
 
-describe('Correctly resolves promises: ', () => {
-  const item = { Id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', Text: 'text' };
+describe('Correctly resolves fetchItems: ', () => {
+  const items = [
+    { Id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', Text: 'text' },
+    { Id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', Text: 'giraffe' },
+  ];
+  // const itemJson = JSON.stringify(items);
+  const fetchSuccess = () => Promise.resolve({ json: () => Promise.resolve(items) });
+  const fetchFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be fetched')) });
+  const fetchFail2 = () => Promise.reject(new Error('Items could not be fetched'));
+  const fakeDispatch = jest.fn((action) => action);
+  const fakeAction = (payload: string): IAction => ({ type: 'unknown', payload });
+  const fakeRequest = () => fakeAction('request items');
+  const fakeReceived = () => fakeAction('success');
+  const fakeFailed = () => fakeAction('error');
+  const fetchItems = (fetch: () => Promise<Response2>) => fetchItemsFactory({
+    requestFunction: fakeRequest,
+    fetchFunction: fetch,
+    successFunction: fakeReceived,
+    errorFunction: fakeFailed,
+  });
 
-  const fetchFunction = () => (
-    new Promise((resolve, reject) => {
-      resolve(Response(item));
-      reject({ error: 'Items could not be fetched' });
+  beforeEach(() => {
+    fakeDispatch.mockClear();
+  });
+
+  it('dispatches requestItems', () => {
+    fetchItems(fetchFail2)(fakeDispatch);
+    const actual = fakeDispatch.mock.calls[0];
+    expect(actual[0]).toEqual(fakeRequest());
+  });
+
+  it('dispatches itemsReceived', () => {
+    return fetchItems(fetchSuccess)(fakeDispatch)
+      .then(() => {
+        const actual = fakeDispatch.mock.calls[1];
+
+        expect(actual[0]).toEqual(fakeReceived());
+        expect(fakeDispatch.mock.calls.length).toBe(2);
+      });
+  });
+
+  it('fails with error', () => fetchItems(fetchFail)(fakeDispatch)
+    .then(error => {
+      const actual = fakeDispatch.mock.calls;
+      console.log('test to fail: ', actual[0][0]);
+      expect(actual).toEqual(fakeFailed());
+      expect(fakeDispatch.mock.calls.length).toBe(2);
     })
   );
-
-  const failingFetchFunction = () => (
-    new Promise((resolve, reject) => {
-      reject({ error: 'Items could not be fetched' });
-    })
-  );
-
-  const fetchItems = fetchItemsFactory({
-    requestFunction: requestItems,
-    fetchFunction: () => fetchFunction(),
-    successFunction: succeedToReceiveItems,
-    errorFunction: failToReceiveItems,
-  });
-
-  const failingFetchItems = fetchItemsFactory({
-    requestFunction: requestItems,
-    fetchFunction: () => failingFetchFunction(),
-    successFunction: succeedToReceiveItems,
-    errorFunction: failToReceiveItems,
-  });
-
-  it('resolves fetchItems', (done) => {
-    const expected = item;
-
-    fetchItems.then(result => {
-      expect(result).toEqual(expected);
-      done();
-    });
-  });
-
-  it('fails with error', (done) => {
-    failingFetchItems.then(result =>
-      fail('This can never happen. The catch block should be called immediately')
-    )
-    .catch(error => {
-      expect(error).toBe('Items could not be fetched');
-      done();
-    });
-  });
 });
