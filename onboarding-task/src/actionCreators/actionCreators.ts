@@ -64,9 +64,9 @@ export const requestPostItems = (): IAction => ({
   payload: {},
 });
 
-export const succeedToPostItems = (id: string): IAction => ({
+export const succeedToPostItems = (json: object): IAction => ({
   type: POST_ITEMS_SUCCESS,
-  payload: { itemId: id },
+  payload: { itemId: json },
 });
 
 export const failToPostItems = (error: Error): IAction => ({
