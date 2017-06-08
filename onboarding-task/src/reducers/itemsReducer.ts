@@ -11,13 +11,13 @@ import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
 import { Item } from '../models/Item';
 import { itemReducer } from './itemReducer';
-import { IReceivedItem } from './IRecievedItem';
+import { IReceivedViaFetchItem } from './IRecievedItem';
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
-      const identifiedItems = receivedObjects.map((value: IReceivedItem) =>
+      const identifiedItems = receivedObjects.map((value: IReceivedViaFetchItem) =>
         [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);
       return state.merge(identifiedItems);
     }
