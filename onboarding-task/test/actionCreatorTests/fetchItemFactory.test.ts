@@ -16,6 +16,11 @@ describe('Correctly resolves fetchItems: ', () => {
   const fakeRequest = () => fakeAction('request items');
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
+  const testCases = [
+    { name: ' succeeding', fetch: fetchSuccess },
+    { name: ' immediately failing', fetch: fetchFailImmediately },
+    { name: ' failing', fetch: fetchFail },
+  ];
   const fetchItems = (fetch: () => Promise<ResponseWithJson>) => fetchItemsFactory({
     fetchBegin: fakeRequest,
     fetch: fetch,
@@ -28,25 +33,13 @@ describe('Correctly resolves fetchItems: ', () => {
     done();
   });
 
-  it('dispatches requestItems with succeeding fetch', () => {
-    fetchItems(fetchSuccess)(fakeDispatch);
-    const actual = fakeDispatch.mock.calls[0];
+  testCases.forEach((testCase) => {
+    it('dispatches requestItems with' + testCase.name + ' fetch', () => {
+      fetchItems(testCase.fetch)(fakeDispatch);
+      const actual = fakeDispatch.mock.calls[0];
 
-    expect(actual[0]).toEqual(fakeRequest());
-  });
-
-  it('dispatches requestItems with immediately failing fetch', () => {
-    fetchItems(fetchFailImmediately)(fakeDispatch);
-    const actual = fakeDispatch.mock.calls[0];
-
-    expect(actual[0]).toEqual(fakeRequest());
-  });
-
-  it('dispatches requestItems with failing fetch', () => {
-    fetchItems(fetchFail)(fakeDispatch);
-    const actual = fakeDispatch.mock.calls[0];
-
-    expect(actual[0]).toEqual(fakeRequest());
+      expect(actual[0]).toEqual(fakeRequest());
+    });
   });
 
   it('dispatches itemsReceived', () => {
