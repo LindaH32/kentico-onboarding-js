@@ -75,11 +75,11 @@ export const failToPostItems = (error: Error): IAction => ({
 });
 
 export const postItems = postItemsFactory({
-  requestFunction: requestPostItems,
-  postFunction: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
+  postBegin: requestPostItems,
+  post: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
     method: 'POST',
   }),
-  successFunction: succeedToPostItems,
-  errorFunction: failToPostItems,
+  success: succeedToPostItems,
+  error: failToPostItems,
 });
 
