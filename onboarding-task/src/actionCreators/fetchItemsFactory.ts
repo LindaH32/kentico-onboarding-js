@@ -2,7 +2,7 @@ import { IAction } from './IAction';
 
 interface IFetchItemsFactoryDependencies {
   requestFunction: () => IAction;
-  fetchFunction: () => Promise<Response2>;
+  fetchFunction: () => Promise<ResponseWithJson>;
   successFunction: (json: object) => IAction;
   errorFunction: (error: Error) => IAction;
 }

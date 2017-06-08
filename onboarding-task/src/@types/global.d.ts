@@ -9,7 +9,7 @@ declare global {
   type DispatchThunk = (thunkAction: (dispatch: DispatchAction) => Promise<IAction>) => Promise<IAction>;
   type Dispatch = DispatchAction & DispatchThunk;
 
-  type Response2 = {
+  type ResponseWithJson = {
     json: () => Promise<any>;
   };
 

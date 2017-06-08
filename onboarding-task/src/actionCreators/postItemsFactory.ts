@@ -2,7 +2,7 @@ import { IAction } from './IAction';
 
 interface IPostItemsFactoryDependencies {
   requestFunction: () => IAction;
-  postFunction: (options: any) => Promise<Response2>;
+  postFunction: (options: any) => Promise<ResponseWithJson>;
   successFunction: (id: string) => IAction;
   errorFunction: (error: Error) => IAction;
 }
