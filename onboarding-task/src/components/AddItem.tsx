@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { IAction } from '../actionCreators/IAction';
 
 interface IAddItemCallbackProps {
-  onAdd: (text: string) => IAction;
+  onAdd: (text: string) => Promise<IAction>;
 }
 
 interface IAddItemDataProps {

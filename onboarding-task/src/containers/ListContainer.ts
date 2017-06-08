@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { List } from '../components/List';
-import { addItem, fetchItems } from '../actionCreators/actionCreators';
+import { fetchItems, postItems } from '../actionCreators/actionCreators';
 import { IAppState } from '../reducers/IAppState';
 import { IListDataProps, IListCallbackProps } from '../components/List';
 
@@ -14,7 +14,7 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbackProps => ({
-  onAddItem: (text: string) => dispatch(addItem(text)),
+  onAddItem: (text: string) => postItems(text)(dispatch),
   fetchItems: () => fetchItems(dispatch),
 });
 
