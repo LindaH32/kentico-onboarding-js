@@ -6,7 +6,7 @@ import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
 import { Loader } from './Loader';
 import { ListItem } from '../containers/ListItemContainer';
-import { FetchError } from './FetchError';
+import { FetchError } from './DisplayError';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
