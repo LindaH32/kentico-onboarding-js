@@ -1,17 +1,17 @@
 import { IAction } from './IAction';
 
 interface IFetchItemsFactoryDependencies {
-  requestFunction: () => IAction;
-  fetchFunction: () => Promise<ResponseWithJson>;
-  successFunction: (json: object) => IAction;
-  errorFunction: (error: Error) => IAction;
+  fetchBegin: () => IAction;
+  success: (json: object) => IAction;
+  error: (error: Error) => IAction;
+  fetch: () => Promise<ResponseWithJson>;
 }
 
 export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) => (dispatch: Dispatch): Promise<IAction> => {
-  dispatch(dependencies.requestFunction());
+  dispatch(dependencies.fetchBegin());
 
-  return dependencies.fetchFunction()
+  return dependencies.fetch()
     .then(response => response.json())
-    .then(json => dispatch(dependencies.successFunction(json)))
-    .catch((error: Error) => dispatch(dependencies.errorFunction(error)));
+    .then(json => dispatch(dependencies.success(json)))
+    .catch((error: Error) => dispatch(dependencies.error(error)));
 };

@@ -53,10 +53,10 @@ export const failToReceiveItems = (error: Error): IAction => ({
 });
 
 export const fetchItems = fetchItemsFactory({
-  requestFunction: requestItems,
-  fetchFunction: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
-  successFunction: succeedToReceiveItems,
-  errorFunction: failToReceiveItems,
+  fetchBegin: requestItems,
+  fetch: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
+  success: succeedToReceiveItems,
+  error: failToReceiveItems,
 });
 
 export const requestPostItems = (): IAction => ({
