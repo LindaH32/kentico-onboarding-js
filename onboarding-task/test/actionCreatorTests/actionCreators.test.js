@@ -106,9 +106,9 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action when requesting to post items', () => {
-    const expectedAction = { type: POST_ITEMS_REQUEST, payload: { text: 'item text' } };
+    const expectedAction = { type: POST_ITEMS_REQUEST, payload: {} };
 
-    const testedAction = requestPostItems('item text');
+    const testedAction = requestPostItems();
 
     expect(testedAction).toEqual(expectedAction);
   });
