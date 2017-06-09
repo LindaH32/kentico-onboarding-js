@@ -64,9 +64,9 @@ export const requestPostItems = (): IAction => ({
   payload: {},
 });
 
-export const succeedToPostItems = (json: object): IAction => ({
+export const succeedToPostItems = (json: object, oldId: string): IAction => ({
   type: POST_ITEMS_SUCCESS,
-  payload: { itemId: json },
+  payload: { serverId: json, oldId },
 });
 
 export const failToPostItems = (error: Error): IAction => ({
@@ -83,4 +83,6 @@ export const postItems = postItemsFactory({
     method: 'POST',
   }),
 });
+
+
 

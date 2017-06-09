@@ -31,7 +31,9 @@ describe('Correctly creates actions', () => {
   const text = 'test text';
 
   it('Action to add an item', () => {
-    const expectedAction = { type: ADD_ITEM, payload: { id: generateFakeId(), text } };
+    const expectedAction = {
+      type: ADD_ITEM,
+      payload: { id: generateFakeId(), text } };
 
     const testedAction = addItemFactory(generateFakeId)(text);
 
@@ -39,7 +41,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to delete an item', () => {
-    const expectedAction = { type: DELETE_ITEM, payload: { id: fakeId } };
+    const expectedAction = {
+      type: DELETE_ITEM,
+      payload: { id: fakeId },
+    };
 
     const testedAction = deleteItem(fakeId);
 
@@ -47,7 +52,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to edit an item', () => {
-    const expectedAction = { type: ENABLE_EDIT_ITEM, payload: { id: fakeId } };
+    const expectedAction = {
+      type: ENABLE_EDIT_ITEM,
+      payload: { id: fakeId },
+    };
 
     const testedAction = enableEditItem(fakeId);
 
@@ -55,7 +63,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to save the changes done to an item', () => {
-    const expectedAction = { type: SAVE_CHANGES_TO_ITEM, payload: { id: fakeId, text } };
+    const expectedAction = {
+      type: SAVE_CHANGES_TO_ITEM,
+      payload: { id: fakeId, text },
+    };
 
     const testedAction = saveChangesToItem(fakeId, text);
 
@@ -63,7 +74,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to delete the changes done to an item', () => {
-    const expectedAction = { type: CANCEL_CHANGES_TO_ITEM, payload: { id: fakeId } };
+    const expectedAction = {
+      type: CANCEL_CHANGES_TO_ITEM,
+      payload: { id: fakeId },
+    };
 
     const testedAction = cancelChangesToItem(fakeId);
 
@@ -71,7 +85,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action to request items', () => {
-    const expectedAction = { type: FETCH_ITEMS_REQUEST, payload: {} };
+    const expectedAction = {
+      type: FETCH_ITEMS_REQUEST,
+      payload: {},
+    };
 
     const testedAction = requestItems();
 
@@ -80,7 +97,10 @@ describe('Correctly creates actions', () => {
 
   it('Action to receive items', () => {
     const jsonItem = '[{"Id":"98dbde18-639e-49a6-8e51-603ceb2ae92d","Text":"text"}]';
-    const expectedAction = { type: FETCH_ITEMS_SUCCESS, payload: { items: jsonItem } };
+    const expectedAction = {
+      type: FETCH_ITEMS_SUCCESS,
+      payload: { items: jsonItem },
+    };
 
     const testedAction = succeedToReceiveItems(jsonItem);
 
@@ -89,7 +109,10 @@ describe('Correctly creates actions', () => {
 
   it('Action when failed receiving the items with an error message', () => {
     const receivedError = new Error('Failed to receive items');
-    const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { errorMessage: 'Failed to receive items' } };
+    const expectedAction = {
+      type: FETCH_ITEMS_FAILURE,
+      payload: { errorMessage: 'Failed to receive items' },
+    };
 
     const testedAction = failToReceiveItems(receivedError);
 
@@ -98,7 +121,10 @@ describe('Correctly creates actions', () => {
 
   it('Action when failed receiving the items with no error message', () => {
     const receivedError = new Error();
-    const expectedAction = { type: FETCH_ITEMS_FAILURE, payload: { errorMessage: 'Items were not fetched' } };
+    const expectedAction = {
+      type: FETCH_ITEMS_FAILURE,
+      payload: { errorMessage: 'Items were not fetched' },
+    };
 
     const testedAction = failToReceiveItems(receivedError);
 
@@ -106,7 +132,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action when requesting to post items', () => {
-    const expectedAction = { type: POST_ITEMS_REQUEST, payload: {} };
+    const expectedAction = {
+      type: POST_ITEMS_REQUEST,
+      payload: {},
+    };
 
     const testedAction = requestPostItems();
 
@@ -115,16 +144,22 @@ describe('Correctly creates actions', () => {
 
   it('Action when succeeding to post items', () => {
     const itemId = '98dbde18-639e-49a6-8e51-603ceb2ae92d';
-    const expectedAction = { type: POST_ITEMS_SUCCESS, payload: { itemId } };
+    const expectedAction = {
+      type: POST_ITEMS_SUCCESS,
+      payload: { serverId: itemId, oldId: fakeId },
+    };
 
-    const testedAction = succeedToPostItems(itemId);
+    const testedAction = succeedToPostItems(itemId, fakeId);
 
     expect(testedAction).toEqual(expectedAction);
   });
 
   it('Action when failed posting the items with an error message', () => {
     const receivedError = new Error('Failed to post items');
-    const expectedAction = { type: POST_ITEMS_FAILURE, payload: { errorMessage: 'Failed to post items' } };
+    const expectedAction = {
+      type: POST_ITEMS_FAILURE,
+      payload: { errorMessage: 'Failed to post items' },
+    };
 
     const testedAction = failToPostItems(receivedError);
 
@@ -133,7 +168,10 @@ describe('Correctly creates actions', () => {
 
   it('Action when failed posting the items with no error message', () => {
     const receivedError = new Error();
-    const expectedAction = { type: POST_ITEMS_FAILURE, payload: { errorMessage: 'Items were not posted' } };
+    const expectedAction = {
+      type: POST_ITEMS_FAILURE,
+      payload: { errorMessage: 'Items were not posted' }
+    };
 
     const testedAction = failToPostItems(receivedError);
 

@@ -35,16 +35,10 @@ describe('Correctly resolves postItems: ', () => {
   });
 
   testCases.forEach(testCase => {
-    it('dispatches requestItems with' + testCase.name + ' post', () => {
-      postItems(testCase.post)('text')(fakeDispatch);
-      const actual = fakeDispatch.mock.calls[0];
-
-      expect(actual[0]).toEqual(fakeRequest());
-    });
 
     it('dispatches addItems with' + testCase.name + ' post', () => {
       postItems(testCase.post)('text')(fakeDispatch);
-      const actual = fakeDispatch.mock.calls[1];
+      const actual = fakeDispatch.mock.calls[0];
 
       expect(actual[0]).toEqual(fakeAddItem());
     });
@@ -53,29 +47,29 @@ describe('Correctly resolves postItems: ', () => {
   it('dispatches itemsReceived', () => {
     return postItems(postSuccess)('text')(fakeDispatch)
       .then(() => {
-        const actual = fakeDispatch.mock.calls[2];
+        const actual = fakeDispatch.mock.calls[1];
 
         expect(actual[0]).toEqual(fakeReceived());
-        expect(fakeDispatch.mock.calls.length).toBe(3);
+        expect(fakeDispatch.mock.calls.length).toBe(2);
       });
   });
 
   it('fails with error immediately', () => {
     return postItems(postFailImmediately)('text')(fakeDispatch)
       .then(() => {
-        const actual = fakeDispatch.mock.calls[2][0];
+        const actual = fakeDispatch.mock.calls[1];
 
-        expect(actual).toEqual(fakeFailed());
-        expect(fakeDispatch.mock.calls.length).toBe(3);
+        expect(actual[0]).toEqual(fakeFailed());
+        expect(fakeDispatch.mock.calls.length).toBe(2);
       });
   });
 
   it('fails with error', () => postItems(postFail)('text')(fakeDispatch)
     .then(() => {
-      const actual = fakeDispatch.mock.calls[2][0];
+      const actual = fakeDispatch.mock.calls[1][0];
 
       expect(actual).toEqual(fakeFailed());
-      expect(fakeDispatch.mock.calls.length).toBe(3);
+      expect(fakeDispatch.mock.calls.length).toBe(2);
     })
   );
 });

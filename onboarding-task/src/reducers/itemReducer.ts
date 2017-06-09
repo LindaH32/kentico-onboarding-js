@@ -1,5 +1,11 @@
 import { Item } from '../models/Item';
-import { ADD_ITEM, ENABLE_EDIT_ITEM, SAVE_CHANGES_TO_ITEM, CANCEL_CHANGES_TO_ITEM } from '../constants/actionTypes';
+import {
+  ADD_ITEM,
+  ENABLE_EDIT_ITEM,
+  SAVE_CHANGES_TO_ITEM,
+  CANCEL_CHANGES_TO_ITEM,
+  POST_ITEMS_SUCCESS,
+} from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
 
@@ -17,6 +23,9 @@ const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
       const changes = { text: action.payload.text, isEdited: false };
       return state.with(changes);
     }
+
+    case POST_ITEMS_SUCCESS:
+      return state.with({ 'id': action.payload.serverId });
 
     case CANCEL_CHANGES_TO_ITEM:
       return state.with({ 'isEdited': false });
