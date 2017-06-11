@@ -12,12 +12,10 @@ describe('Correctly resolves postItems: ', () => {
   const postFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be posted')) });
   let fakeDispatch: jest.Mock<Dispatch>;
   const fakeAction = (payload: string): IAction => ({ type: 'unknown', payload });
-  const fakeRequest = () => fakeAction('request items');
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeAddItem = () => fakeAction('add');
   const postItems = (post: () => Promise<ResponseWithJson>) => postItemsFactory({
-    postBegin: fakeRequest,
     success: fakeReceived,
     error: fakeFailed,
     itemAdd: fakeAddItem,

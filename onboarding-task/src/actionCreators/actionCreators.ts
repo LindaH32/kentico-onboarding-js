@@ -6,7 +6,10 @@ import {
   CANCEL_CHANGES_TO_ITEM,
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
-  FETCH_ITEMS_FAILURE, POST_ITEMS_SUCCESS, POST_ITEMS_FAILURE, POST_ITEMS_REQUEST,
+  FETCH_ITEMS_FAILURE,
+  POST_ITEMS_SUCCESS,
+  POST_ITEMS_FAILURE,
+  DISMISS_ERROR,
 } from '../constants/actionTypes';
 import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
@@ -42,31 +45,26 @@ export const requestItems = (): IAction => ({
   payload: {},
 });
 
-export const succeedToReceiveItems = (json: object): IAction => ({
+export const succeedToFetchItems = (json: object): IAction => ({
   type: FETCH_ITEMS_SUCCESS,
   payload: { items: json },
 });
 
-export const failToReceiveItems = (error: Error): IAction => ({
+export const failToFetchItems = (error: Error): IAction => ({
   type: FETCH_ITEMS_FAILURE,
   payload: { errorMessage: error.message || 'Items were not fetched' },
 });
 
 export const fetchItems = fetchItemsFactory({
   fetchBegin: requestItems,
-  success: succeedToReceiveItems,
-  error: failToReceiveItems,
+  success: succeedToFetchItems,
+  error: failToFetchItems,
   fetch: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
-});
-
-export const requestPostItems = (): IAction => ({
-  type: POST_ITEMS_REQUEST,
-  payload: {},
 });
 
 export const succeedToPostItems = (json: object, oldId: string): IAction => ({
   type: POST_ITEMS_SUCCESS,
-  payload: { serverId: json, oldId },
+  payload: { item: json, oldId },
 });
 
 export const failToPostItems = (error: Error): IAction => ({
@@ -75,13 +73,21 @@ export const failToPostItems = (error: Error): IAction => ({
 });
 
 export const postItems = postItemsFactory({
-  postBegin: requestPostItems,
   itemAdd: addItem,
   success: succeedToPostItems,
   error: failToPostItems,
-  post: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
+  post: (body) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
     method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
   }),
+});
+
+export const dismissError = (): IAction => ({
+  type: DISMISS_ERROR,
+  payload: {},
 });
 
 

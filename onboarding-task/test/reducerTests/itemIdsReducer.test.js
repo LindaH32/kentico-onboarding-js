@@ -21,7 +21,6 @@ describe('Correctly adds and removes item Ids: ', () => {
     const expected = OrderedSet.of(firstId, fakeId);
 
     const tested = itemIdsReducer(initialState, action);
-    console.log('expected: ', expected, 'tested: ', tested);
     expect(tested).toEqual(expected);
   });
 

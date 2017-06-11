@@ -5,13 +5,13 @@ import {
   POST_ITEMS_SUCCESS
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
-import { IReceivedViaFetchItem } from './IRecievedItem';
+import { IItemData } from '../models/IItem';
 
 const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
-      const itemIds = receivedObjects.map((value: IReceivedViaFetchItem) => value.Id);
+      const itemIds = receivedObjects.map((value: Partial<IItemData>) => value.id);
       return state.merge(itemIds);
     }
 
@@ -23,8 +23,8 @@ const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action
     }
 
     case POST_ITEMS_SUCCESS: {
-      const oldId = action.payload.id;
-      const serverId = action.payload.serverId;
+      const oldId = action.payload.oldId;
+      const serverId = action.payload.item.id;
       state.delete(oldId);
 
       return state.add(serverId);

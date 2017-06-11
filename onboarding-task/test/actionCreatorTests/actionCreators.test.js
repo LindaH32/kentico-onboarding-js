@@ -4,8 +4,8 @@ import {
   saveChangesToItem,
   cancelChangesToItem,
   requestItems,
-  succeedToReceiveItems,
-  failToReceiveItems,
+  succeedToFetchItems,
+  failToFetchItems,
   requestPostItems,
   succeedToPostItems,
   failToPostItems,
@@ -102,7 +102,7 @@ describe('Correctly creates actions', () => {
       payload: { items: jsonItem },
     };
 
-    const testedAction = succeedToReceiveItems(jsonItem);
+    const testedAction = succeedToFetchItems(jsonItem);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -114,7 +114,7 @@ describe('Correctly creates actions', () => {
       payload: { errorMessage: 'Failed to receive items' },
     };
 
-    const testedAction = failToReceiveItems(receivedError);
+    const testedAction = failToFetchItems(receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -126,7 +126,7 @@ describe('Correctly creates actions', () => {
       payload: { errorMessage: 'Items were not fetched' },
     };
 
-    const testedAction = failToReceiveItems(receivedError);
+    const testedAction = failToFetchItems(receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -146,7 +146,7 @@ describe('Correctly creates actions', () => {
     const itemId = '98dbde18-639e-49a6-8e51-603ceb2ae92d';
     const expectedAction = {
       type: POST_ITEMS_SUCCESS,
-      payload: { serverId: itemId, oldId: fakeId },
+      payload: { item: itemId, oldId: fakeId },
     };
 
     const testedAction = succeedToPostItems(itemId, fakeId);

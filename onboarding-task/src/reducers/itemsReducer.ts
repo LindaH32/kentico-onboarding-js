@@ -5,25 +5,34 @@ import {
   ENABLE_EDIT_ITEM,
   SAVE_CHANGES_TO_ITEM,
   CANCEL_CHANGES_TO_ITEM,
-  FETCH_ITEMS_SUCCESS
+  FETCH_ITEMS_SUCCESS,
+  POST_ITEMS_SUCCESS,
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
-import { IItem } from '../models/IItem';
+import { IItem, IItemData } from '../models/IItem';
 import { Item } from '../models/Item';
 import { itemReducer } from './itemReducer';
-import { IReceivedViaFetchItem } from './IRecievedItem';
 
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
-      const receivedObjects = action.payload.items;
-      const identifiedItems = receivedObjects.map((value: IReceivedViaFetchItem) =>
-        [value.Id, new Item({ id: value.Id, text: value.Text, isEdited: false })]);
+      const identifiedItems = action
+        .payload
+        .items
+        .map((value: Partial<IItemData>) =>
+          [value.id, new Item({ id: value.id, text: value.text, isEdited: false })]);
       return state.merge(identifiedItems);
     }
 
     case ADD_ITEM:
       return state.set(action.payload.id, itemReducer(undefined, action));
+
+    case POST_ITEMS_SUCCESS: {
+      const currentItem = state.get(action.payload.oldId);
+      const updatedItem = itemReducer(currentItem, action);
+
+      return state.set(action.payload.oldId, updatedItem);
+    }
 
     case DELETE_ITEM:
       return state.delete(action.payload.id);

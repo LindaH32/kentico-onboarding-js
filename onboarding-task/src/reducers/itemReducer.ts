@@ -25,7 +25,7 @@ const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
     }
 
     case POST_ITEMS_SUCCESS:
-      return state.with({ 'id': action.payload.serverId });
+      return state.with(action.payload.item);
 
     case CANCEL_CHANGES_TO_ITEM:
       return state.with({ 'isEdited': false });
