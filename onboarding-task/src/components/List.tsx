@@ -60,9 +60,7 @@ class List extends React.PureComponent<ListProps, IListState> {
 
   _prepareErrors = () => (
     this.props.errorIds.valueSeq().map((errorId: string) => (
-      <li key={errorId} className="list-group-item">
-        <DisplayError errorId={errorId}/>
-      </li>
+        <DisplayError key={errorId} errorId={errorId}/>
     )));
 
   _listIfIsfNotLoading = () =>
