@@ -85,9 +85,9 @@ export const postItems = postItemsFactory({
   }),
 });
 
-export const dismissError = (): IAction => ({
+export const dismissError = (itemId: string): IAction => ({
   type: DISMISS_ERROR,
-  payload: {},
+  payload: { itemId },
 });
 
 

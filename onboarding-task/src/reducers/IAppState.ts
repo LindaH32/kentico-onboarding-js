@@ -5,5 +5,7 @@ export interface IAppState {
   itemIds: OrderedSet<string>;
   items: Map<string, IItemData>;
   isFetching: boolean;
-  errorMessage: string;
+  isPosting: boolean;
+  errors: Map<string, string>;
+  errorIds: OrderedSet<string>;
 }

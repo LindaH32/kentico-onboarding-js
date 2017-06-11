@@ -1,20 +1,33 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { IAction } from '../actionCreators/IAction';
 
-interface IDisplayErrorProps {
-  errorMessage: string;
+export interface IDisplayErrorDataProps {
+  error: string;
 }
 
-const DisplayError: React.StatelessComponent<IDisplayErrorProps> = ({ errorMessage }) => !errorMessage ? (
+export interface IDisplayErrorCallbackProps {
+  onDismissClick: () => IAction;
+}
+
+const DisplayError: React.StatelessComponent<IDisplayErrorDataProps & IDisplayErrorCallbackProps> = ({
+     error,
+     onDismissClick,
+  }) => (
   <div className="alert alert-danger">
-    <strong>Something went wrong:</strong> {errorMessage}
-    <button  type="button" className="btn btn-default btn-xs glyphicon glyphicon-remove" />
+    <strong>Something went wrong:</strong> {error}
+    <button onClick={onDismissClick} type="button" className="btn btn-default btn-xs glyphicon glyphicon-remove" />
   </div>
-) : <span/>;
+);
 
 DisplayError.displayName = 'DisplayError';
 DisplayError.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+};
+DisplayError.displayName = 'DisplayError';
+DisplayError.propTypes = {
+  error: PropTypes.string.isRequired,
+  onDismissClick: PropTypes.func.isRequired,
 };
 
 export { DisplayError };

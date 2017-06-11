@@ -6,12 +6,12 @@ import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
 import { Loader } from './Loader';
 import { ListItem } from '../containers/ListItemContainer';
-import { DisplayError } from './DisplayError';
+import { DisplayError } from '../containers/DisplayErrorContainer';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
   isFetching: boolean;
-  errorMessage: string;
+  errorIds: OrderedSet<string>;
 }
 
 export interface IListCallbackProps {
@@ -31,7 +31,7 @@ class List extends React.PureComponent<ListProps, IListState> {
   onAddItem: PropTypes.func.isRequired,
   fetchItems: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  errorIds: ImmutablePropTypes.orderedSet.isRequired,
   };
 
   constructor(props: ListProps) {
@@ -58,6 +58,13 @@ class List extends React.PureComponent<ListProps, IListState> {
     </ul>
   );
 
+  _prepareErrors = () => (
+    this.props.errorIds.valueSeq().map((errorId: string) => (
+      <li key={errorId} className="list-group-item">
+        <DisplayError errorId={errorId}/>
+      </li>
+    )));
+
   _listIfIsfNotLoading = () =>
     !this.props.isFetching ? this._prepareList() : null;
 
@@ -78,8 +85,7 @@ class List extends React.PureComponent<ListProps, IListState> {
             </p>
           </div>
         </div>
-
-        <DisplayError errorMessage={this.props.errorMessage}/>
+          {this._prepareErrors()}
         <div className="row">
           <div className=" col-sm-12 col-md-offset-2 col-md-8">
             <Loader isFetching={this.props.isFetching} />

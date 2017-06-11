@@ -4,13 +4,15 @@ import { itemIdsReducer } from './itemIdsReducer';
 import { fetchingFlagReducer } from './fetchingFlagReducer';
 import { errorReducer } from './errorReducer';
 import { postingFlagReducer } from './postingFlagReducer';
+import { errorIdsReducer } from './errorIdsReducer';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
   itemIds: itemIdsReducer,
   isFetching: fetchingFlagReducer,
   isPosting: postingFlagReducer,
-  errorMessage: errorReducer,
+  errors: errorReducer,
+  errorIds: errorIdsReducer,
 });
 
 export { rootReducer };
