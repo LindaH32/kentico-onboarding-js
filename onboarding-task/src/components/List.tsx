@@ -6,7 +6,7 @@ import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
 import { Loader } from './Loader';
 import { ListItem } from '../containers/ListItemContainer';
-import { FetchError } from './DisplayError';
+import { DisplayError } from './DisplayError';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
@@ -63,7 +63,6 @@ class List extends React.PureComponent<ListProps, IListState> {
 
   testFetchItem = () => {
     this.props.fetchItems();
-    console.log('List.tsx ');
   };
   render() {
     return (
@@ -80,7 +79,7 @@ class List extends React.PureComponent<ListProps, IListState> {
           </div>
         </div>
 
-        <FetchError errorMessage={this.props.errorMessage}/>
+        <DisplayError errorMessage={this.props.errorMessage}/>
         <div className="row">
           <div className=" col-sm-12 col-md-offset-2 col-md-8">
             <Loader isFetching={this.props.isFetching} />

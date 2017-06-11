@@ -1,19 +1,20 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-interface IFetchErrorProps {
+interface IDisplayErrorProps {
   errorMessage: string;
 }
 
-const FetchError: React.StatelessComponent<IFetchErrorProps> = ({ errorMessage }) => errorMessage ? (
+const DisplayError: React.StatelessComponent<IDisplayErrorProps> = ({ errorMessage }) => !errorMessage ? (
   <div className="alert alert-danger">
     <strong>Something went wrong:</strong> {errorMessage}
+    <button  type="button" className="btn btn-default btn-xs glyphicon glyphicon-remove" />
   </div>
 ) : <span/>;
 
-FetchError.displayName = 'FetchError';
-FetchError.propTypes = {
+DisplayError.displayName = 'DisplayError';
+DisplayError.propTypes = {
   errorMessage: PropTypes.string.isRequired,
 };
 
-export { FetchError };
+export { DisplayError };
