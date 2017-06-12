@@ -50,9 +50,9 @@ export const succeedToFetchItems = (json: object): IAction => ({
   payload: { items: json },
 });
 
-export const failToFetchItems = (error: Error): IAction => ({
+export const failToFetchItems = (id: string, error: Error): IAction => ({
   type: FETCH_ITEMS_FAILURE,
-  payload: { errorMessage: error.message || 'Items were not fetched' },
+  payload: { id, errorMessage: error.message || 'Items were not fetched' },
 });
 
 export const fetchItems = fetchItemsFactory({
@@ -60,6 +60,7 @@ export const fetchItems = fetchItemsFactory({
   success: succeedToFetchItems,
   error: failToFetchItems,
   fetch: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
+  idGenerator: createGuid,
 });
 
 export const succeedToPostItems = (json: object, oldId: string): IAction => ({
@@ -67,9 +68,9 @@ export const succeedToPostItems = (json: object, oldId: string): IAction => ({
   payload: { item: json, oldId },
 });
 
-export const failToPostItems = (error: Error): IAction => ({
+export const failToPostItems = (id: string, error: Error): IAction => ({
   type: POST_ITEMS_FAILURE,
-  payload: { errorMessage: error.message || 'Items were not posted' },
+  payload: {id, errorMessage: error.message || 'Items were not posted' },
 });
 
 export const postItems = postItemsFactory({
@@ -85,9 +86,9 @@ export const postItems = postItemsFactory({
   }),
 });
 
-export const dismissError = (itemId: string): IAction => ({
+export const dismissError = (id: string): IAction => ({
   type: DISMISS_ERROR,
-  payload: { itemId },
+  payload: { id },
 });
 
 

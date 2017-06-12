@@ -16,6 +16,7 @@ describe('Correctly resolves fetchItems: ', () => {
   const fakeRequest = () => fakeAction('request items');
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
+  const fakeIdGenerator = () => '98dbde18-639e-49a6-8e51-603ceb2ae92d';
   const testCases = [
     { name: ' succeeding', fetch: fetchSuccess },
     { name: ' immediately failing', fetch: fetchFailImmediately },
@@ -26,6 +27,7 @@ describe('Correctly resolves fetchItems: ', () => {
     fetch: fetch,
     success: fakeReceived,
     error: fakeFailed,
+    idGenerator: fakeIdGenerator,
   });
 
   beforeEach((done) => {

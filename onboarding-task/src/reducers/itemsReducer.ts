@@ -16,12 +16,12 @@ import { itemReducer } from './itemReducer';
 const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
-      const identifiedItems = action
+      const items = action
         .payload
         .items
         .map((value: Partial<IItemData>) =>
           [value.id, new Item({ id: value.id, text: value.text, isEdited: false })]);
-      return state.merge(identifiedItems);
+      return state.merge(items);
     }
 
     case ADD_ITEM:

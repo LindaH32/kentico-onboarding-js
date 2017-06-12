@@ -13,8 +13,8 @@ const errorReducer = (state: Map<string, string> = Map<string, string>(), action
     case POST_ITEMS_FAILURE:
     case FETCH_ITEMS_FAILURE: {
       const errorId = action.payload.id;
-      const errorMessage = action.payload.error;
-      return state.merge(errorId, errorMessage);
+      const errorMessage = action.payload.errorMessage;
+      return state.set(errorId, errorMessage);
     }
 
     default:

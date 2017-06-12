@@ -3,7 +3,7 @@ import { IItemData } from '../models/IItem';
 
 interface IPostItemsFactoryDependencies {
   success: (json: object, oldId: string) => IAction;
-  error: (error: Error) => IAction;
+  error: (id: string, error: Error) => IAction;
   itemAdd: (text: string) => IAction;
   post: (body: Partial<IItemData>) => Promise<ResponseWithJson>;
 }
@@ -13,6 +13,6 @@ export const postItemsFactory = (dependencies: IPostItemsFactoryDependencies) =>
     return dependencies.post({ text })
       .then(response => response.json())
       .then(item => dispatch(dependencies.success(item, clientId)))
-      .catch((error: Error) => dispatch(dependencies.error(error)));
+      .catch((error: Error) => dispatch(dependencies.error(clientId, error)));
   }
 );
