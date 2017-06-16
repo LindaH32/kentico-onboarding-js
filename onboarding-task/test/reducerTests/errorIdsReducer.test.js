@@ -1,5 +1,5 @@
 import { OrderedSet } from 'immutable';
-import { FETCH_ITEMS_FAILURE, POST_ITEMS_FAILURE, DISMISS_ERROR } from '../../src/constants/actionTypes.ts';
+import { FETCH_ITEMS_FAILURE, POST_ITEM_FAILURE, DISMISS_ERROR } from '../../src/constants/actionTypes.ts';
 import { errorIdsReducer } from '../../src/reducers/errorIdsReducer.ts';
 
 describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
@@ -15,7 +15,7 @@ describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
   });
 
   it('adds a new error id into an unexisting OrderedSet via post failure', () => {
-    const action = { type: POST_ITEMS_FAILURE, payload: { id: fakeErrorId, text } };
+    const action = { type: POST_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
     const expected = OrderedSet.of(fakeErrorId);
 
     const tested = errorIdsReducer(undefined, action);
@@ -34,7 +34,7 @@ describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
   });
 
   it('adds a new error id into a nonempty OrderedSet via post failure', () => {
-    const action = { type: POST_ITEMS_FAILURE, payload: { id: fakeErrorId, text } };
+    const action = { type: POST_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
     const firstError = 's54d8e2x-15e8-4s52-e44s-ad71e2d5zz40';
     const initialState = OrderedSet.of(firstError);
     const expected = OrderedSet.of(firstError, fakeErrorId);

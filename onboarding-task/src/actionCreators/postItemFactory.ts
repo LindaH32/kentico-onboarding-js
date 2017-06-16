@@ -8,7 +8,7 @@ interface IPostItemsFactoryDependencies {
   post: (body: Partial<IItemData>) => Promise<ResponseWithJson>;
 }
 
-export const postItemsFactory = (dependencies: IPostItemsFactoryDependencies) => (text: string) => ((dispatch: Dispatch): Promise<IAction> => {
+export const postItemFactory = (dependencies: IPostItemsFactoryDependencies) => (text: string) => ((dispatch: Dispatch): Promise<IAction> => {
     const clientId = dispatch(dependencies.itemAdd(text)).payload.id;
     return dependencies.post({ text })
       .then(response => response.json())

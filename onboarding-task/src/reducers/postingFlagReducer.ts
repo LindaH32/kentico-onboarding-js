@@ -1,6 +1,6 @@
 import { IAction } from '../actionCreators/IAction';
 import {
-  POST_ITEMS_FAILURE, ADD_ITEM, POST_ITEMS_SUCCESS
+  POST_ITEM_FAILURE, ADD_ITEM, POST_ITEM_SUCCESS
 } from '../constants/actionTypes';
 
 const postingFlagReducer = (state = false, action: IAction): boolean => {
@@ -8,8 +8,8 @@ const postingFlagReducer = (state = false, action: IAction): boolean => {
     case ADD_ITEM:
       return state = true;
 
-    case POST_ITEMS_SUCCESS:
-    case POST_ITEMS_FAILURE:
+    case POST_ITEM_SUCCESS:
+    case POST_ITEM_FAILURE:
       return state = false;
 
     default:

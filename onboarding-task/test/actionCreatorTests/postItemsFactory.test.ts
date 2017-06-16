@@ -1,8 +1,8 @@
 import { Promise } from 'es6-promise';
-import { postItemsFactory } from '../../src/actionCreators/postItemsFactory';
+import { postItemFactory } from '../../src/actionCreators/postItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 
-describe('Correctly resolves postItems: ', () => {
+describe('Correctly resolves postItem: ', () => {
   const items = [
     { Id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', Text: 'text' },
     { Id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', Text: 'giraffe' },
@@ -15,7 +15,7 @@ describe('Correctly resolves postItems: ', () => {
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeAddItem = () => fakeAction('add');
-  const postItems = (post: () => Promise<ResponseWithJson>) => postItemsFactory({
+  const postItem = (post: () => Promise<ResponseWithJson>) => postItemFactory({
     success: fakeReceived,
     error: fakeFailed,
     itemAdd: fakeAddItem,
@@ -35,7 +35,7 @@ describe('Correctly resolves postItems: ', () => {
   testCases.forEach(testCase => {
 
     it('dispatches addItems with' + testCase.name + ' post', () => {
-      postItems(testCase.post)('text')(fakeDispatch);
+      postItem(testCase.post)('text')(fakeDispatch);
       const actual = fakeDispatch.mock.calls[0];
 
       expect(actual[0]).toEqual(fakeAddItem());
@@ -43,7 +43,7 @@ describe('Correctly resolves postItems: ', () => {
   });
 
   it('dispatches itemsReceived', () => {
-    return postItems(postSuccess)('text')(fakeDispatch)
+    return postItem(postSuccess)('text')(fakeDispatch)
       .then(() => {
         const actual = fakeDispatch.mock.calls[1];
 
@@ -53,7 +53,7 @@ describe('Correctly resolves postItems: ', () => {
   });
 
   it('fails with error immediately', () => {
-    return postItems(postFailImmediately)('text')(fakeDispatch)
+    return postItem(postFailImmediately)('text')(fakeDispatch)
       .then(() => {
         const actual = fakeDispatch.mock.calls[1];
 
@@ -62,7 +62,7 @@ describe('Correctly resolves postItems: ', () => {
       });
   });
 
-  it('fails with error', () => postItems(postFail)('text')(fakeDispatch)
+  it('fails with error', () => postItem(postFail)('text')(fakeDispatch)
     .then(() => {
       const actual = fakeDispatch.mock.calls[1][0];
 

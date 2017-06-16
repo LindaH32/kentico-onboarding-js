@@ -6,7 +6,7 @@ import {
   SAVE_CHANGES_TO_ITEM,
   CANCEL_CHANGES_TO_ITEM,
   FETCH_ITEMS_SUCCESS,
-  POST_ITEMS_SUCCESS,
+  POST_ITEM_SUCCESS,
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IItem, IItemData } from '../models/IItem';
@@ -27,7 +27,7 @@ const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: 
     case ADD_ITEM:
       return state.set(action.payload.id, itemReducer(undefined, action));
 
-    case POST_ITEMS_SUCCESS: {
+    case POST_ITEM_SUCCESS: {
       const currentItem = state.get(action.payload.oldId);
       const updatedItem = itemReducer(currentItem, action);
 

@@ -6,7 +6,7 @@ import {
   requestItems,
   succeedToFetchItems,
   failToFetchItems,
-  succeedToPostItems,
+  succeedToPostItem,
   failToPostItems,
 } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
@@ -19,8 +19,8 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
-  POST_ITEMS_SUCCESS,
-  POST_ITEMS_FAILURE,
+  POST_ITEM_SUCCESS,
+  POST_ITEM_FAILURE,
 } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
@@ -132,11 +132,11 @@ describe('Correctly creates actions', () => {
   it('Action when succeeding to post items', () => {
     const itemId = '98dbde18-639e-49a6-8e51-603ceb2ae92d';
     const expectedAction = {
-      type: POST_ITEMS_SUCCESS,
+      type: POST_ITEM_SUCCESS,
       payload: { item: itemId, oldId: fakeId },
     };
 
-    const testedAction = succeedToPostItems(itemId, fakeId);
+    const testedAction = succeedToPostItem(itemId, fakeId);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -144,7 +144,7 @@ describe('Correctly creates actions', () => {
   it('Action when failed posting the items with an error message', () => {
     const receivedError = new Error('Failed to post items');
     const expectedAction = {
-      type: POST_ITEMS_FAILURE,
+      type: POST_ITEM_FAILURE,
       payload: { id: fakeId, errorMessage: 'Failed to post items' },
     };
 
@@ -156,7 +156,7 @@ describe('Correctly creates actions', () => {
   it('Action when failed posting the items with no error message', () => {
     const receivedError = new Error();
     const expectedAction = {
-      type: POST_ITEMS_FAILURE,
+      type: POST_ITEM_FAILURE,
       payload: { id: fakeId, errorMessage: 'Items were not posted' }
     };
 

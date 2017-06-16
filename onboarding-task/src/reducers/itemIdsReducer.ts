@@ -2,7 +2,7 @@ import { OrderedSet } from 'immutable';
 import {
   ADD_ITEM, DELETE_ITEM,
   FETCH_ITEMS_SUCCESS,
-  POST_ITEMS_SUCCESS
+  POST_ITEM_SUCCESS
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IItemData } from '../models/IItem';
@@ -22,7 +22,7 @@ const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action
       return state.delete(action.payload.id);
     }
 
-    case POST_ITEMS_SUCCESS: {
+    case POST_ITEM_SUCCESS: {
       const oldId = action.payload.oldId;
       const serverId = action.payload.item.id;
       state.delete(oldId);

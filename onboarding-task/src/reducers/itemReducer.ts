@@ -4,7 +4,7 @@ import {
   ENABLE_EDIT_ITEM,
   SAVE_CHANGES_TO_ITEM,
   CANCEL_CHANGES_TO_ITEM,
-  POST_ITEMS_SUCCESS,
+  POST_ITEM_SUCCESS,
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
 import { IItem } from '../models/IItem';
@@ -24,7 +24,7 @@ const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
       return state.with(changes);
     }
 
-    case POST_ITEMS_SUCCESS:
+    case POST_ITEM_SUCCESS:
       return state.with(action.payload.item);
 
     case CANCEL_CHANGES_TO_ITEM:

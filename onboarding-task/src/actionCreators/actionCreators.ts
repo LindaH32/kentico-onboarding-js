@@ -7,8 +7,8 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
-  POST_ITEMS_SUCCESS,
-  POST_ITEMS_FAILURE,
+  POST_ITEM_SUCCESS,
+  POST_ITEM_FAILURE,
   DISMISS_ERROR,
 } from '../constants/actionTypes';
 import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
@@ -16,7 +16,7 @@ import { addItemFactory } from './addItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
-import { postItemsFactory } from './postItemsFactory';
+import { postItemFactory } from './postItemFactory';
 
 export const addItem = addItemFactory(createGuid);
 
@@ -63,19 +63,19 @@ export const fetchItems = fetchItemsFactory({
   idGenerator: createGuid,
 });
 
-export const succeedToPostItems = (json: object, oldId: string): IAction => ({
-  type: POST_ITEMS_SUCCESS,
+export const succeedToPostItem = (json: object, oldId: string): IAction => ({
+  type: POST_ITEM_SUCCESS,
   payload: { item: json, oldId },
 });
 
 export const failToPostItems = (id: string, error: Error): IAction => ({
-  type: POST_ITEMS_FAILURE,
+  type: POST_ITEM_FAILURE,
   payload: {id, errorMessage: error.message || 'Items were not posted' },
 });
 
-export const postItems = postItemsFactory({
+export const postItem = postItemFactory({
   itemAdd: addItem,
-  success: succeedToPostItems,
+  success: succeedToPostItem,
   error: failToPostItems,
   post: (body) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
     method: 'POST',
