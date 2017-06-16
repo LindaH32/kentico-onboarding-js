@@ -6,7 +6,6 @@ import {
   requestItems,
   succeedToFetchItems,
   failToFetchItems,
-  requestPostItems,
   succeedToPostItems,
   failToPostItems,
 } from '../../src/actionCreators/actionCreators.ts';
@@ -20,7 +19,6 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
-  POST_ITEMS_REQUEST,
   POST_ITEMS_SUCCESS,
   POST_ITEMS_FAILURE,
 } from '../../src/constants/actionTypes.ts';
@@ -111,10 +109,10 @@ describe('Correctly creates actions', () => {
     const receivedError = new Error('Failed to receive items');
     const expectedAction = {
       type: FETCH_ITEMS_FAILURE,
-      payload: { errorMessage: 'Failed to receive items' },
+      payload: { id: fakeId, errorMessage: 'Failed to receive items' },
     };
 
-    const testedAction = failToFetchItems(receivedError);
+    const testedAction = failToFetchItems(fakeId, receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -123,21 +121,10 @@ describe('Correctly creates actions', () => {
     const receivedError = new Error();
     const expectedAction = {
       type: FETCH_ITEMS_FAILURE,
-      payload: { errorMessage: 'Items were not fetched' },
+      payload: {id: fakeId, errorMessage: 'Items were not fetched' },
     };
 
-    const testedAction = failToFetchItems(receivedError);
-
-    expect(testedAction).toEqual(expectedAction);
-  });
-
-  it('Action when requesting to post items', () => {
-    const expectedAction = {
-      type: POST_ITEMS_REQUEST,
-      payload: {},
-    };
-
-    const testedAction = requestPostItems();
+    const testedAction = failToFetchItems(fakeId, receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -158,10 +145,10 @@ describe('Correctly creates actions', () => {
     const receivedError = new Error('Failed to post items');
     const expectedAction = {
       type: POST_ITEMS_FAILURE,
-      payload: { errorMessage: 'Failed to post items' },
+      payload: { id: fakeId, errorMessage: 'Failed to post items' },
     };
 
-    const testedAction = failToPostItems(receivedError);
+    const testedAction = failToPostItems(fakeId, receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
@@ -170,10 +157,10 @@ describe('Correctly creates actions', () => {
     const receivedError = new Error();
     const expectedAction = {
       type: POST_ITEMS_FAILURE,
-      payload: { errorMessage: 'Items were not posted' }
+      payload: { id: fakeId, errorMessage: 'Items were not posted' }
     };
 
-    const testedAction = failToPostItems(receivedError);
+    const testedAction = failToPostItems(fakeId, receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
