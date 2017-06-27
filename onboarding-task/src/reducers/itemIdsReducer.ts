@@ -12,6 +12,7 @@ const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action
     case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
       const itemIds = receivedObjects.map((value: Partial<IItemData>) => value.id);
+
       return state.merge(itemIds);
     }
 
@@ -25,10 +26,10 @@ const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action
     case POST_ITEM_SUCCESS: {
       const oldId = action.payload.oldId;
       const serverId = action.payload.item.id;
-      state.delete(oldId);
 
-      return state.add(serverId);
-
+      return state
+        .map(id => (id === oldId) ?  serverId : id)
+        .toOrderedSet();
     }
 
     default:

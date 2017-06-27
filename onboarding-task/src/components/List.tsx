@@ -66,17 +66,11 @@ class List extends React.PureComponent<ListProps, IListState> {
   _listIfIsfNotLoading = () =>
     !this.props.isFetching ? this._prepareList() : null;
 
-  testFetchItem = () => {
-    this.props.fetchItems();
-  };
   render() {
     return (
       <div className="row">
         <div className="row">
           <div className="col-sm-12">
-            <button className="btn btn-lg btn-info"
-                    onClick={this.testFetchItem}>Click ME
-            </button>
             <p className="lead text-center">
               <b>Note: </b>
               Try to make the solution easily extensible (e.g. more displayed fields per item).

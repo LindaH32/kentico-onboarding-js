@@ -31,7 +31,10 @@ const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: 
       const currentItem = state.get(action.payload.oldId);
       const updatedItem = itemReducer(currentItem, action);
 
-      return state.set(action.payload.oldId, updatedItem);
+      return state
+        .mapKeys((key: string) => (key === action.payload.oldId) ? updatedItem.id : key)
+        .toMap()
+        .set(updatedItem.id, updatedItem);
     }
 
     case DELETE_ITEM:

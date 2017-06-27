@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
@@ -10,9 +10,10 @@ import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let store = createStore(
   rootReducer,
-  applyMiddleware(logger, thunk)
+  composeEnhancers(applyMiddleware(logger, thunk))
 );
 
 ReactDOM.render(
