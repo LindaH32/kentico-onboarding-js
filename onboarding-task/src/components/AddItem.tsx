@@ -6,25 +6,18 @@ interface IAddItemCallbackProps {
   onAdd: (text: string) => Promise<IAction>;
 }
 
-interface IAddItemDataProps {
-  isFetching: boolean;
-}
-
 interface IAddItemState {
   text: string;
 }
 
-type AddItemProps = IAddItemCallbackProps & IAddItemDataProps;
-
-class AddItem extends React.PureComponent<AddItemProps, IAddItemState> {
+class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> {
   static displayName = 'AddItem';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
   };
 
-  constructor(props: AddItemProps) {
+  constructor(props: IAddItemCallbackProps) {
     super(props);
     this.state = { text: '' };
   }
@@ -37,11 +30,13 @@ class AddItem extends React.PureComponent<AddItemProps, IAddItemState> {
     this.setState({ text: '' });
   };
 
+  _handleNonEmptyInsert = (text: string) => (text === '' || text.match(/^\s*$/) !== null);
+
   render() {
     return (
       <div className="form-inline">
-        <input disabled={this.props.isFetching}  className="form-control" onChange={this._handleChange} value={this.state.text} />
-        <button disabled={this.props.isFetching}  type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
+        <input className="form-control" onChange={this._handleChange} value={this.state.text} />
+        <button disabled={ this._handleNonEmptyInsert(this.state.text) }  type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
       </div>
     );
   }

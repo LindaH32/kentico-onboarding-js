@@ -53,7 +53,7 @@ class List extends React.PureComponent<ListProps, IListState> {
     <ul id="todo-list" className="list-group">
       {this._prepareRows()}
       <li className="list-group-item">
-        <AddItem isFetching={this.props.isFetching} onAdd={this.props.onAddItem} />
+        <AddItem onAdd={this.props.onAddItem} />
       </li>
     </ul>
   );
