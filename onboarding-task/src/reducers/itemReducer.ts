@@ -7,7 +7,7 @@ import {
   POST_ITEM_SUCCESS,
 } from '../constants/actionTypes';
 import { IAction } from '../actionCreators/IAction';
-import { IItem } from '../models/IItem';
+import { IItem, IItemData } from '../models/IItem';
 
 const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
   switch (action.type) {
@@ -24,8 +24,11 @@ const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
       return state.with(changes);
     }
 
-    case POST_ITEM_SUCCESS:
-      return state.with(action.payload.item);
+    case POST_ITEM_SUCCESS: {
+      const item = action.payload.item;
+      const newItem: Partial<IItemData> = { id: item.id, text: item.text, isEdited: false };
+      return state.with(newItem);
+    }
 
     case CANCEL_CHANGES_TO_ITEM:
       return state.with({ 'isEdited': false });
