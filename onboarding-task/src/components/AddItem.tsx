@@ -30,7 +30,7 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
     this.setState({ text: '' });
   };
 
-  _handleNonEmptyInsert = (text: string) => (text === '' || text.match(/^\s*$/) !== null);
+  _handleNonEmptyInsert = (text: string) => (text.trim() === '');
 
   render() {
     return (
