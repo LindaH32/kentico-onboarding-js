@@ -1,11 +1,11 @@
 import { OrderedSet } from 'immutable';
-import { FETCH_ITEMS_FAILURE, POST_ITEM_FAILURE, DISMISS_ERROR } from '../../src/constants/actionTypes.ts';
+import { FETCH_ITEMS_FAILURE, POST_ITEM_FAILURE, UPDATE_ITEM_FAILURE, DELETE_ITEM_FAILURE, DISMISS_ERROR } from '../../src/constants/actionTypes.ts';
 import { errorIdsReducer } from '../../src/reducers/errorIdsReducer.ts';
 
 describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
   const fakeErrorId = '23456899-df58-1bbf-1j8p-4asd582z69d8';
   const text = 'some_Error';
-  it('adds a new error id into an unexisting OrderedSet via fetch failure', () => {
+  it('adds a new error id into an nonexistent OrderedSet via fetch failure', () => {
     const action = { type: FETCH_ITEMS_FAILURE, payload: { id: fakeErrorId, text } };
     const expected = OrderedSet.of(fakeErrorId);
 
@@ -14,7 +14,7 @@ describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
     expect(tested).toEqual(expected);
   });
 
-  it('adds a new error id into an unexisting OrderedSet via post failure', () => {
+  it('adds a new error id into an nonexistent OrderedSet via post failure', () => {
     const action = { type: POST_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
     const expected = OrderedSet.of(fakeErrorId);
 
@@ -35,6 +35,44 @@ describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
 
   it('adds a new error id into a nonempty OrderedSet via post failure', () => {
     const action = { type: POST_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
+    const firstError = 's54d8e2x-15e8-4s52-e44s-ad71e2d5zz40';
+    const initialState = OrderedSet.of(firstError);
+    const expected = OrderedSet.of(firstError, fakeErrorId);
+
+    const tested = errorIdsReducer(initialState, action);
+    expect(tested).toEqual(expected);
+  });
+
+  it('adds a new error id into an nonexistent OrderedSet via update failure', () => {
+    const action = { type: UPDATE_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
+    const expected = OrderedSet.of(fakeErrorId);
+
+    const tested = errorIdsReducer(undefined, action);
+
+    expect(tested).toEqual(expected);
+  });
+
+  it('adds a new error id into a nonempty OrderedSet via update failure', () => {
+    const action = { type: UPDATE_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
+    const firstError = 's54d8e2x-15e8-4s52-e44s-ad71e2d5zz40';
+    const initialState = OrderedSet.of(firstError);
+    const expected = OrderedSet.of(firstError, fakeErrorId);
+
+    const tested = errorIdsReducer(initialState, action);
+    expect(tested).toEqual(expected);
+  });
+
+  it('adds a new error id into an nonexistent OrderedSet via update failure', () => {
+    const action = { type: DELETE_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
+    const expected = OrderedSet.of(fakeErrorId);
+
+    const tested = errorIdsReducer(undefined, action);
+
+    expect(tested).toEqual(expected);
+  });
+
+  it('adds a new error id into a nonempty OrderedSet via update failure', () => {
+    const action = { type: DELETE_ITEM_FAILURE, payload: { id: fakeErrorId, text } };
     const firstError = 's54d8e2x-15e8-4s52-e44s-ad71e2d5zz40';
     const initialState = OrderedSet.of(firstError);
     const expected = OrderedSet.of(firstError, fakeErrorId);
