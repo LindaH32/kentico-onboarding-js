@@ -20,7 +20,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): I
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
-  onDelete: () => dispatch(deleteItem(ownProps.itemId)),
+  onDelete: () => deleteItem(ownProps.itemId)(dispatch),
   onDoubleClick: () => dispatch(enableEditItem(ownProps.itemId)),
   onSave: (text: string) => dispatch(saveChangesToItem(ownProps.itemId, text)),
   onCancel: () => dispatch(cancelChangesToItem(ownProps.itemId)),

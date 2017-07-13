@@ -12,7 +12,7 @@ export interface IListItemDataProps {
 export interface IListItemCallbackProps {
   onSave: (text: string) => IAction;
   onCancel: () => IAction;
-  onDelete: () => IAction;
+  onDelete: () => Promise<IAction>;
   onDoubleClick: () => IAction;
 }
 
