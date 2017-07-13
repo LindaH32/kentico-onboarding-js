@@ -1,6 +1,7 @@
 import { OrderedSet } from 'immutable';
 import {
-  ADD_ITEM, DELETE_ITEM,
+  ADD_ITEM,
+  DELETE_ITEM,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS
 } from '../constants/actionTypes';
