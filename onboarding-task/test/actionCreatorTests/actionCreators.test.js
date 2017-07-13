@@ -1,5 +1,5 @@
 import {
-  deleteItem,
+  removeItem,
   enableEditItem,
   saveChangesToItem,
   cancelChangesToItem,
@@ -44,7 +44,7 @@ describe('Correctly creates actions', () => {
       payload: { id: fakeId },
     };
 
-    const testedAction = deleteItem(fakeId);
+    const testedAction = removeItem(fakeId);
 
     expect(testedAction).toEqual(expectedAction);
   });

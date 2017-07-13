@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { Item } from '../../src/models/Item.ts';
-import { deleteItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
+import { removeItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import { itemsReducer } from '../../src/reducers/itemsReducer.ts';
 
@@ -24,7 +24,7 @@ describe('Correctly creates reducers', () => {
 
   it('Reducer for deleting an Item', () => {
     const expected = Map();
-    const deletionAction = deleteItem(id);
+    const deletionAction = removeItem(id);
 
     const tested = itemsReducer(initialState, deletionAction);
 

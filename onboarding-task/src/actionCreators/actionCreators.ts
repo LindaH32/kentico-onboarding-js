@@ -10,6 +10,8 @@ import {
   POST_ITEM_SUCCESS,
   POST_ITEM_FAILURE,
   DISMISS_ERROR,
+  DELETE_ITEM_SUCCESS,
+  DELETE_ITEM_FAILURE,
 } from '../constants/actionTypes';
 import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
@@ -17,10 +19,11 @@ import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
+import { deleteItemFactory } from './deleteItemFactory';
 
 export const addItem = addItemFactory(createGuid);
 
-export const deleteItem = (id: string): IAction => ({
+export const removeItem = (id: string): IAction => ({
   type: DELETE_ITEM,
   payload: { id },
 });
@@ -86,10 +89,26 @@ export const postItem = postItemFactory({
   }),
 });
 
+export const succeedToDeleteItem = (json: object): IAction => ({
+  type: DELETE_ITEM_SUCCESS,
+  payload: { item: json },
+});
+
+export const failToDeleteItems = (id: string, error: Error): IAction => ({
+  type: DELETE_ITEM_FAILURE,
+  payload: {id, errorMessage: error.message || ('Item with id ' + id + ' was not deleted')},
+});
+
+export const deleteItem = deleteItemFactory({
+  itemRemove: removeItem,
+  success: succeedToDeleteItem,
+  error: failToDeleteItems,
+  deleteItem: (id) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE + '/' + id, {
+    method: 'DELETE',
+  }),
+});
+
 export const dismissError = (id: string): IAction => ({
   type: DISMISS_ERROR,
   payload: { id },
 });
-
-
-
