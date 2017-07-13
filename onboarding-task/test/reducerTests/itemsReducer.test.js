@@ -22,7 +22,7 @@ describe('Correctly creates reducers', () => {
     expect(tested).toEqual(expected);
   });
 
-  it('Reducer for deleting an Item', () => {
+  it('Reducer for removing an Item', () => {
     const expected = Map();
     const deletionAction = removeItem(id);
 

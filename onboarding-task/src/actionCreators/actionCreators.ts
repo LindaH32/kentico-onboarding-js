@@ -96,7 +96,7 @@ export const succeedToDeleteItem = (json: object): IAction => ({
 
 export const failToDeleteItems = (id: string, error: Error): IAction => ({
   type: DELETE_ITEM_FAILURE,
-  payload: {id, errorMessage: error.message || ('Item with id ' + id + ' was not deleted')},
+  payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not deleted')},
 });
 
 export const deleteItem = deleteItemFactory({

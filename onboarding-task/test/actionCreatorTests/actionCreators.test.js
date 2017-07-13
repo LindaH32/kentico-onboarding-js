@@ -8,6 +8,8 @@ import {
   failToFetchItems,
   succeedToPostItem,
   failToPostItems,
+  succeedToDeleteItem,
+  failToDeleteItems,
 } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import {
@@ -21,6 +23,8 @@ import {
   FETCH_ITEMS_FAILURE,
   POST_ITEM_SUCCESS,
   POST_ITEM_FAILURE,
+  DELETE_ITEM_SUCCESS,
+  DELETE_ITEM_FAILURE,
 } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
@@ -121,7 +125,7 @@ describe('Correctly creates actions', () => {
     const receivedError = new Error();
     const expectedAction = {
       type: FETCH_ITEMS_FAILURE,
-      payload: {id: fakeId, errorMessage: 'Items were not fetched' },
+      payload: { id: fakeId, errorMessage: 'Items were not fetched' },
     };
 
     const testedAction = failToFetchItems(fakeId, receivedError);
@@ -157,11 +161,50 @@ describe('Correctly creates actions', () => {
     const receivedError = new Error();
     const expectedAction = {
       type: POST_ITEM_FAILURE,
-      payload: { id: fakeId, errorMessage: 'Items were not posted' }
+      payload: { id: fakeId, errorMessage: 'Items were not posted' },
     };
 
     const testedAction = failToPostItems(fakeId, receivedError);
 
     expect(testedAction).toEqual(expectedAction);
   });
+
+
+  it('Action when succeeding to delete items', () => {
+    const deletedItem = { id: fakeId, text };
+    const expectedAction = {
+      type: DELETE_ITEM_SUCCESS,
+      payload: { item: deletedItem },
+    };
+
+    const testedAction = succeedToDeleteItem(deletedItem);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed deleting the items - with an error message', () => {
+    const receivedError = new Error('Failed to delete items');
+    const expectedAction = {
+      type: DELETE_ITEM_FAILURE,
+      payload: { id: fakeId, errorMessage: 'Failed to delete items' },
+    };
+
+    const testedAction = failToDeleteItems(fakeId, receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed deleting the items - with no error message', () => {
+    const receivedError = new Error();
+    const expectedAction = {
+      type: DELETE_ITEM_FAILURE,
+      payload: { id: fakeId, errorMessage: 'The item with the id ' + fakeId + ' was not deleted' },
+    };
+
+    const testedAction = failToDeleteItems(fakeId, receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+
 });
