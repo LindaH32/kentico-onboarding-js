@@ -12,6 +12,8 @@ import {
   DISMISS_ERROR,
   DELETE_ITEM_SUCCESS,
   DELETE_ITEM_FAILURE,
+  UPDATE_ITEM_SUCCESS,
+  UPDATE_ITEM_FAILURE,
 } from '../constants/actionTypes';
 import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
@@ -20,6 +22,8 @@ import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
+import { updateItemFactory } from './updateItemFactory';
+import { IItemData } from '../models/IItem';
 
 export const addItem = addItemFactory(createGuid);
 
@@ -103,8 +107,28 @@ export const deleteItem = deleteItemFactory({
   itemRemove: removeItem,
   success: succeedToDeleteItem,
   error: failToDeleteItems,
-  deleteItem: (id) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE + '/' + id, {
+  deleteItem: (id: string) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE + '/' + id, {
     method: 'DELETE',
+  }),
+});
+
+export const succeedToUpdateItem = (json: object): IAction => ({
+  type: UPDATE_ITEM_SUCCESS,
+  payload: { item: json },
+});
+
+export const failToUpdateItem = (id: string, error: Error): IAction => ({
+  type: UPDATE_ITEM_FAILURE,
+  payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not updated')},
+});
+
+export const updateItem = updateItemFactory({
+  itemUpdate: saveChangesToItem,
+  success: succeedToUpdateItem,
+  error: failToUpdateItem,
+  update: (item: Partial<IItemData>) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
+    method: 'UPDATE',
+    body: JSON.stringify(item),
   }),
 });
 
