@@ -2,7 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../reducers/IAppState';
 import { ListItem } from '../components/ListItem';
-import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators';
+import {
+  enableEditItem,
+  deleteItem,
+  cancelChangesToItem,
+  updateItem,
+} from '../actionCreators/actionCreators';
 import { itemViewModel } from '../models/itemViewModel';
 import { IListItemDataProps, IListItemCallbackProps } from '../components/ListItem';
 
@@ -22,7 +27,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): I
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
   onDelete: () => deleteItem(ownProps.itemId)(dispatch),
   onDoubleClick: () => dispatch(enableEditItem(ownProps.itemId)),
-  onSave: (text: string) => dispatch(saveChangesToItem(ownProps.itemId, text)),
+  onSave: (text: string) => updateItem(ownProps.itemId, text)(dispatch),
   onCancel: () => dispatch(cancelChangesToItem(ownProps.itemId)),
 });
 

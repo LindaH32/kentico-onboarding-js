@@ -8,7 +8,7 @@ interface IItemEditDataProps {
 }
 
 interface IItemEditCallbackProps {
-  onSave: (text: string) => IAction;
+  onSave: (text: string) => Promise<IAction>;
   onCancel: () => IAction;
   onDelete: () => Promise<IAction>;
 }

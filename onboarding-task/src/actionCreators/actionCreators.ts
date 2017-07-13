@@ -23,7 +23,6 @@ import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
 import { updateItemFactory } from './updateItemFactory';
-import { IItemData } from '../models/IItem';
 
 export const addItem = addItemFactory(createGuid);
 
@@ -126,9 +125,12 @@ export const updateItem = updateItemFactory({
   itemUpdate: saveChangesToItem,
   success: succeedToUpdateItem,
   error: failToUpdateItem,
-  update: (item: Partial<IItemData>) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
-    method: 'UPDATE',
-    body: JSON.stringify(item),
+  update: (id: string, text: string) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
+    method: 'PUT',
+    body: JSON.stringify({ id: id, text: text }),
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
   }),
 });
 
