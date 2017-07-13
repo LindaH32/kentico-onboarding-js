@@ -10,6 +10,8 @@ import {
   failToPostItems,
   succeedToDeleteItem,
   failToDeleteItems,
+  succeedToUpdateItem,
+  failToUpdateItem,
 } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
 import {
@@ -25,6 +27,8 @@ import {
   POST_ITEM_FAILURE,
   DELETE_ITEM_SUCCESS,
   DELETE_ITEM_FAILURE,
+  UPDATE_ITEM_SUCCESS,
+  UPDATE_ITEM_FAILURE,
 } from '../../src/constants/actionTypes.ts';
 
 describe('Correctly creates actions', () => {
@@ -183,10 +187,10 @@ describe('Correctly creates actions', () => {
   });
 
   it('Action when failed deleting the items - with an error message', () => {
-    const receivedError = new Error('Failed to delete items');
+    const receivedError = new Error('Failed to delete item');
     const expectedAction = {
       type: DELETE_ITEM_FAILURE,
-      payload: { id: fakeId, errorMessage: 'Failed to delete items' },
+      payload: { id: fakeId, errorMessage: 'Failed to delete item' },
     };
 
     const testedAction = failToDeleteItems(fakeId, receivedError);
@@ -206,5 +210,39 @@ describe('Correctly creates actions', () => {
     expect(testedAction).toEqual(expectedAction);
   });
 
+  it('Action when succeeding to update items', () => {
+    const updatedItem = { id: fakeId, text };
+    const expectedAction = {
+      type: UPDATE_ITEM_SUCCESS,
+      payload: { item: updatedItem },
+    };
 
+    const testedAction = succeedToUpdateItem(updatedItem);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed updating the items with an error message', () => {
+    const receivedError = new Error('Failed to update item');
+    const expectedAction = {
+      type: UPDATE_ITEM_FAILURE,
+      payload: { id: fakeId, errorMessage: 'Failed to update item' },
+    };
+
+    const testedAction = failToUpdateItem(fakeId, receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
+
+  it('Action when failed updating the items with no error message', () => {
+    const receivedError = new Error();
+    const expectedAction = {
+      type: UPDATE_ITEM_FAILURE,
+      payload: { id: fakeId, errorMessage: 'The item with the id ' + fakeId + ' was not updated' },
+    };
+
+    const testedAction = failToUpdateItem(fakeId, receivedError);
+
+    expect(testedAction).toEqual(expectedAction);
+  });
 });
