@@ -8,7 +8,7 @@ describe('Correctly resolves fetchItems: ', () => {
     { Id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', Text: 'giraffe' },
   ];
 
-  const fetchSuccess = () => Promise.resolve({ json: () => Promise.resolve(items) });
+  const fetchSuccess = () => Promise.resolve({ json: (() => Promise.resolve(items)) });
   const fetchFailImmediately = () => Promise.reject(new Error('Items could not be fetched'));
   const fetchFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be fetched')) });
   let fakeDispatch: jest.Mock<Dispatch>;

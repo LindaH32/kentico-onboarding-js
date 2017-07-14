@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 import { Item } from '../../src/models/Item.ts';
 import { deleteItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
-import { itemsReducer } from '../../src/reducers/itemsReducer.ts';
+import { itemsReducer } from '../../src/reducers/ListItemReducers/itemsReducer.ts';
 
 describe('Correctly creates reducers', () => {
   const id = '82xc89c4-s58s-55s6-2z57-10sd5w8a6h12';
