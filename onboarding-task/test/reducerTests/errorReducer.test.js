@@ -14,7 +14,6 @@ describe('Error reducer works correctly with errors', () => {
     const errorInit = 'init error';
     const error = new Error('init error');
     const expected = Map({ [fakeId]: errorInit });
-    console.log('errorReducer: ', expected);
     const failingFetchAction = failToFetchItems(fakeId, error);
 
     const tested = errorReducer(undefined, failingFetchAction);
@@ -28,7 +27,6 @@ describe('Error reducer works correctly with errors', () => {
     const errorInit = 'init error';
     const error = new Error('init error');
     const expected = Map({ [fakeId]: errorInit });
-    console.log('errorReducer: ', error.message);
     const failingFetchAction = failToPostItems(fakeId, error);
 
     const tested = errorReducer(undefined, failingFetchAction);

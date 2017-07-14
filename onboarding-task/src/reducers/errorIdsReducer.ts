@@ -13,7 +13,6 @@ const errorIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), actio
 
     case POST_ITEM_FAILURE:
     case FETCH_ITEMS_FAILURE: {
-        console.log('errorIdsReducer state: ', state);
         return state.add(action.payload.id);
       }
 
