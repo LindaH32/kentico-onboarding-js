@@ -22,7 +22,7 @@ import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
-import { updateItemFactory } from './updateItemFactory';
+import { updateItemFactory } from './putItemFactory';
 
 export const addItem = addItemFactory(createGuid);
 

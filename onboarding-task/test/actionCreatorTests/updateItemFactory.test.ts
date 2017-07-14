@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { updateItemFactory } from '../../src/actionCreators/updateItemFactory';
+import { updateItemFactory } from '../../src/actionCreators/putItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 
 describe('Correctly resolves updateItem: ', () => {
