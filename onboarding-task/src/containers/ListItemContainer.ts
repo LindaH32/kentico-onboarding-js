@@ -6,7 +6,7 @@ import {
   enableEditItem,
   deleteItem,
   cancelChangesToItem,
-  updateItem,
+  putItem,
 } from '../actionCreators/actionCreators';
 import { itemViewModel } from '../models/itemViewModel';
 import { IListItemDataProps, IListItemCallbackProps } from '../components/ListItem';
@@ -27,7 +27,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): I
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
   onDelete: () => deleteItem(ownProps.itemId)(dispatch),
   onDoubleClick: () => dispatch(enableEditItem(ownProps.itemId)),
-  onSave: (text: string) => updateItem(ownProps.itemId, text)(dispatch),
+  onSave: (text: string) => putItem(ownProps.itemId, text)(dispatch),
   onCancel: () => dispatch(cancelChangesToItem(ownProps.itemId)),
 });
 

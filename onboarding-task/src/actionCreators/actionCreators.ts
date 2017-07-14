@@ -12,8 +12,8 @@ import {
   DISMISS_ERROR,
   DELETE_ITEM_SUCCESS,
   DELETE_ITEM_FAILURE,
-  UPDATE_ITEM_SUCCESS,
-  UPDATE_ITEM_FAILURE,
+  PUT_ITEM_SUCCESS,
+  PUT_ITEM_FAILURE,
 } from '../constants/actionTypes';
 import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
 import { addItemFactory } from './addItemFactory';
@@ -22,7 +22,7 @@ import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
-import { updateItemFactory } from './putItemFactory';
+import { putItemFactory } from './putItemFactory';
 
 export const addItem = addItemFactory(createGuid);
 
@@ -111,21 +111,21 @@ export const deleteItem = deleteItemFactory({
   }),
 });
 
-export const succeedToUpdateItem = (json: object): IAction => ({
-  type: UPDATE_ITEM_SUCCESS,
+export const succeedToPutItem = (json: object): IAction => ({
+  type: PUT_ITEM_SUCCESS,
   payload: { item: json },
 });
 
-export const failToUpdateItem = (id: string, error: Error): IAction => ({
-  type: UPDATE_ITEM_FAILURE,
+export const failToPutItem = (id: string, error: Error): IAction => ({
+  type: PUT_ITEM_FAILURE,
   payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not updated')},
 });
 
-export const updateItem = updateItemFactory({
+export const putItem = putItemFactory({
   itemUpdate: saveChangesToItem,
-  success: succeedToUpdateItem,
-  error: failToUpdateItem,
-  update: (id: string, text: string) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
+  success: succeedToPutItem,
+  error: failToPutItem,
+  put: (id: string, text: string) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
     method: 'PUT',
     body: JSON.stringify({ id: id, text: text }),
     headers: {

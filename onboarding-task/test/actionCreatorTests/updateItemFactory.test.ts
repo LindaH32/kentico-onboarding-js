@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { updateItemFactory } from '../../src/actionCreators/putItemFactory';
+import { putItemFactory } from '../../src/actionCreators/putItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 
 describe('Correctly resolves updateItem: ', () => {
@@ -8,24 +8,24 @@ describe('Correctly resolves updateItem: ', () => {
     { Id: firstFakeId, Text: 'text' },
     { Id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', Text: 'panda' },
   ];
-  const updateSuccess = () => Promise.resolve({ json: () => Promise.resolve(items) });
-  const updateFailImmediately = () => Promise.reject(new Error('Items could not be updated'));
-  const updateFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be updated')) });
+  const putSuccess = () => Promise.resolve({ json: () => Promise.resolve(items) });
+  const putFailImmediately = () => Promise.reject(new Error('Items could not be updated'));
+  const putFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be updated')) });
   let fakeDispatch: jest.Mock<Dispatch>;
   const fakeAction = (payload: string): IAction => ({ type: 'unknown', payload });
   const fakeUpdated = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeItemUpdate = () => fakeAction('update');
-  const updateItem = (update: () => Promise<ResponseWithJson>) => updateItemFactory({
+  const putItem = (put: () => Promise<ResponseWithJson>) => putItemFactory({
     success: fakeUpdated,
     error: fakeFailed,
     itemUpdate: fakeItemUpdate,
-    update: update,
+    put: put,
   });
   const testCases = [
-    { name: ' succeeding', update: updateSuccess },
-    { name: ' immediately failing', update: updateFailImmediately },
-    { name: ' failing', update: updateFail },
+    { name: ' succeeding', put: putSuccess },
+    { name: ' immediately failing', put: putFailImmediately },
+    { name: ' failing', put: putFail },
   ];
 
   beforeEach((done) => {
@@ -36,7 +36,7 @@ describe('Correctly resolves updateItem: ', () => {
   testCases.forEach(testCase => {
 
     it('dispatches updateItems with' + testCase.name + ' update', () => {
-      updateItem(testCase.update)(firstFakeId, 'text')(fakeDispatch);
+      putItem(testCase.put)(firstFakeId, 'text')(fakeDispatch);
       const actual = fakeDispatch.mock.calls[0];
 
       expect(actual[0]).toEqual(fakeItemUpdate());
@@ -44,7 +44,7 @@ describe('Correctly resolves updateItem: ', () => {
   });
 
   it('dispatches itemsUpdated', () => {
-    return updateItem(updateSuccess)(firstFakeId, 'text')(fakeDispatch)
+    return putItem(putSuccess)(firstFakeId, 'text')(fakeDispatch)
       .then(() => {
         const actual = fakeDispatch.mock.calls[1];
 
@@ -54,7 +54,7 @@ describe('Correctly resolves updateItem: ', () => {
   });
 
   it('fails with error immediately', () => {
-    return updateItem(updateFailImmediately)(firstFakeId, 'text')(fakeDispatch)
+    return putItem(putFailImmediately)(firstFakeId, 'text')(fakeDispatch)
       .then(() => {
         const actual = fakeDispatch.mock.calls[1];
 
@@ -63,7 +63,7 @@ describe('Correctly resolves updateItem: ', () => {
       });
   });
 
-  it('fails with error', () => updateItem(updateFail)(firstFakeId, 'text')(fakeDispatch)
+  it('fails with error', () => putItem(putFail)(firstFakeId, 'text')(fakeDispatch)
     .then(() => {
       const actual = fakeDispatch.mock.calls[1][0];
 
