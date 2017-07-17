@@ -1,16 +1,17 @@
 import { Promise } from 'es6-promise';
 import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactory';
 import { IAction } from '../../src/actionCreators/IAction';
+import { IItemData } from '../../src/models/IItem';
 
 describe('Correctly resolves fetchItems: ', () => {
   const items = [
-    { Id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', Text: 'text' },
-    { Id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', Text: 'giraffe' },
+    { id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', text: 'text' },
+    { id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', text: 'giraffe' },
   ];
 
-  const fetchSuccess = () => Promise.resolve({ json: (() => Promise.resolve(items)) });
+  const fetchSuccess = () => Promise.resolve({ json: ((): Promise<Partial<IItemData>[]> => Promise.resolve(items)) });
   const fetchFailImmediately = () => Promise.reject(new Error('Items could not be fetched'));
-  const fetchFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be fetched')) });
+  const fetchFail = () => Promise.resolve({ json: (): Promise<Error> => Promise.reject(new Error('Items could not be fetched')) });
   let fakeDispatch: jest.Mock<Dispatch>;
   const fakeAction = (payload: string): IAction => ({ type: 'unknown', payload });
   const fakeRequest = () => fakeAction('request items');
@@ -22,7 +23,7 @@ describe('Correctly resolves fetchItems: ', () => {
     { name: ' immediately failing', fetch: fetchFailImmediately },
     { name: ' failing', fetch: fetchFail },
   ];
-  const fetchItems = (fetch: () => Promise<ResponseWithJson>) => fetchItemsFactory({
+  const fetchItems = (fetch: () => Promise<{}>) => fetchItemsFactory({
     fetchBegin: fakeRequest,
     fetch: fetch,
     success: fakeReceived,

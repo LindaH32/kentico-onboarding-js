@@ -1,21 +1,22 @@
 import { Promise } from 'es6-promise';
 import { postItemFactory } from '../../src/actionCreators/postItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
+import { IItemData } from '../../src/models/IItem';
 
 describe('Correctly resolves postItem: ', () => {
   const items = [
-    { Id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', Text: 'text' },
-    { Id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', Text: 'giraffe' },
+    { id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', text: 'text' },
+    { id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', text: 'giraffe' },
   ];
-  const postSuccess = () => Promise.resolve({ json: () => Promise.resolve(items) });
+  const postSuccess = () => Promise.resolve({ json: (): Promise<Partial<IItemData>[]> => Promise.resolve(items) });
   const postFailImmediately = () => Promise.reject(new Error('Items could not be posted'));
-  const postFail = () => Promise.resolve({ json: () => Promise.reject(new Error('Items could not be posted')) });
+  const postFail = () => Promise.resolve({ json: () : Promise<Error> => Promise.reject(new Error('Items could not be posted')) });
   let fakeDispatch: jest.Mock<Dispatch>;
   const fakeAction = (payload: string): IAction => ({ type: 'unknown', payload });
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeAddItem = () => fakeAction('add');
-  const postItem = (post: () => Promise<ResponseWithJson>) => postItemFactory({
+  const postItem = (post: () => Promise<{}>) => postItemFactory({
     success: fakeReceived,
     error: fakeFailed,
     itemAdd: fakeAddItem,
