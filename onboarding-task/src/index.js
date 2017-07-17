@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import 'babel-polyfill';
 import { rootReducer } from './reducers/rootReducer.ts';
 import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
