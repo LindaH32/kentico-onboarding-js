@@ -63,7 +63,7 @@ class List extends React.PureComponent<ListProps, IListState> {
         <DisplayError key={errorId} errorId={errorId}/>
     )));
 
-  _listIfIsfNotLoading = () =>
+  _listOrLoading = () =>
     !this.props.isFetching ? this._prepareList() : null;
 
   render() {
@@ -77,11 +77,11 @@ class List extends React.PureComponent<ListProps, IListState> {
             </p>
           </div>
         </div>
-          {this._prepareErrors()}
+        {this._prepareErrors()}
         <div className="row">
           <div className=" col-sm-12 col-md-offset-2 col-md-8">
             <Loader isFetching={this.props.isFetching} />
-            {this._listIfIsfNotLoading()}
+            {this._listOrLoading()}
           </div>
         </div>
       </div>
