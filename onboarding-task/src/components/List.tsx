@@ -5,8 +5,8 @@ import { OrderedSet } from 'immutable';
 import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
 import { Loader } from './Loader';
-import { ListItem } from '../containers/ListItemContainer';
-import { DisplayError } from '../containers/DisplayErrorContainer';
+import { ListItem } from '../containers/ListItem';
+import { DisplayError } from '../containers/DisplayError';
 
 export interface IListDataProps {
   itemIds: OrderedSet<string>;
