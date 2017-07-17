@@ -1,4 +1,5 @@
 import { IAction } from './IAction';
+import { checkStatus } from './checkStatus';
 
 interface IFetchItemsFactoryDependencies {
   fetchBegin: () => IAction;
@@ -13,6 +14,7 @@ export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) 
   const errorId = dependencies.idGenerator();
 
   return dependencies.fetch()
+    .then(checkStatus)
     .then(response => response.json())
     .then(items => dispatch(dependencies.success(items)))
     .catch((error: Error) => dispatch(dependencies.error(errorId, error)));
