@@ -16,11 +16,13 @@ describe('Correctly resolves postItem: ', () => {
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeAddItem = () => fakeAction('add');
+  const checkStatus = (response: Response) => response;
   const postItem = (post: () => Promise<{}>) => postItemFactory({
     success: fakeReceived,
     error: fakeFailed,
     itemAdd: fakeAddItem,
     post: post,
+    checkStatus: checkStatus,
   });
   const testCases = [
     { name: ' succeeding', post: postSuccess },
@@ -65,9 +67,9 @@ describe('Correctly resolves postItem: ', () => {
 
   it('fails with error', () => postItem(postFail)('text')(fakeDispatch)
     .then(() => {
-      const actual = fakeDispatch.mock.calls[1][0];
+      const actual = fakeDispatch.mock.calls[1];
 
-      expect(actual).toEqual(fakeFailed());
+      expect(actual[0]).toEqual(fakeFailed());
       expect(fakeDispatch.mock.calls.length).toBe(2);
     })
   );

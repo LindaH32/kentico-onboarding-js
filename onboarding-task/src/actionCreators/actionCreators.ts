@@ -17,6 +17,7 @@ import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
+import { checkStatus } from './checkStatus';
 
 export const addItem = addItemFactory(createGuid);
 
@@ -76,12 +77,14 @@ export const fetchItems = fetchItemsFactory({
   error: failToFetchItems,
   fetch: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
   idGenerator: createGuid,
+  checkStatus: checkStatus,
 });
 
 export const postItem = postItemFactory({
   itemAdd: addItem,
   success: succeedToPostItem,
   error: failToPostItems,
+  checkStatus: checkStatus,
   post: (body) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
     method: 'POST',
     body: JSON.stringify(body),

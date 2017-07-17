@@ -18,6 +18,7 @@ describe('Correctly resolves fetchItems: ', () => {
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeIdGenerator = () => '98dbde18-639e-49a6-8e51-603ceb2ae92d';
+  const checkStatus = (response: Response) => response;
   const testCases = [
     { name: ' succeeding', fetch: fetchSuccess },
     { name: ' immediately failing', fetch: fetchFailImmediately },
@@ -29,6 +30,7 @@ describe('Correctly resolves fetchItems: ', () => {
     success: fakeReceived,
     error: fakeFailed,
     idGenerator: fakeIdGenerator,
+    checkStatus: checkStatus,
   });
 
   beforeEach((done) => {
@@ -58,18 +60,18 @@ describe('Correctly resolves fetchItems: ', () => {
   it('fails with error immediately', () => {
     return fetchItems(fetchFailImmediately)(fakeDispatch)
       .then(() => {
-         const actual = fakeDispatch.mock.calls[1][0];
+         const actual = fakeDispatch.mock.calls[1];
 
-         expect(actual).toEqual(fakeFailed());
+         expect(actual[0]).toEqual(fakeFailed());
          expect(fakeDispatch.mock.calls.length).toBe(2);
       });
   });
 
   it('fails with error', () => fetchItems(fetchFail)(fakeDispatch)
     .then(() => {
-      const actual = fakeDispatch.mock.calls[1][0];
+      const actual = fakeDispatch.mock.calls[1];
 
-      expect(actual).toEqual(fakeFailed());
+      expect(actual[0]).toEqual(fakeFailed());
       expect(fakeDispatch.mock.calls.length).toBe(2);
     })
   );

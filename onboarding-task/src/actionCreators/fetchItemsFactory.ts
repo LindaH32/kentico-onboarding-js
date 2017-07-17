@@ -1,12 +1,12 @@
 import { IAction } from './IAction';
-import { checkStatus } from './checkStatus';
 
 interface IFetchItemsFactoryDependencies {
   fetchBegin: () => IAction;
   success: (json: object) => IAction;
   error: (id: string, error: Error) => IAction;
-  fetch: () => Promise<ResponseWithJson>;
+  fetch: () => Promise<Response>;
   idGenerator: () => string;
+  checkStatus: (response: Response) => Response;
 }
 
 export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) => (dispatch: Dispatch): Promise<IAction> => {
@@ -14,7 +14,7 @@ export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) 
   const errorId = dependencies.idGenerator();
 
   return dependencies.fetch()
-    .then(checkStatus)
+    .then(response => dependencies.checkStatus(response))
     .then(response => response.json())
     .then(items => dispatch(dependencies.success(items)))
     .catch((error: Error) => dispatch(dependencies.error(errorId, error)));
