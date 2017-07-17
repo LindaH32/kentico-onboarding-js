@@ -4,7 +4,6 @@ import * as PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
 import { AddItem } from './AddItem';
 import { IAction } from '../actionCreators/IAction';
-import { Loader } from './Loader';
 import { ListItem } from '../containers/ListItem';
 import { DisplayError } from '../containers/DisplayError';
 
@@ -38,8 +37,9 @@ class List extends React.PureComponent<ListProps, IListState> {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchItems();
+    console.log('List.tsx: ');
   }
 
   _prepareRows = () => (
@@ -63,9 +63,6 @@ class List extends React.PureComponent<ListProps, IListState> {
         <DisplayError key={errorId} errorId={errorId}/>
     )));
 
-  _listOrLoading = () =>
-    !this.props.isFetching ? this._prepareList() : null;
-
   render() {
     return (
       <div className="row">
@@ -80,8 +77,7 @@ class List extends React.PureComponent<ListProps, IListState> {
         {this._prepareErrors()}
         <div className="row">
           <div className=" col-sm-12 col-md-offset-2 col-md-8">
-            <Loader isFetching={this.props.isFetching} />
-            {this._listOrLoading()}
+            {this._prepareList()}
           </div>
         </div>
       </div>

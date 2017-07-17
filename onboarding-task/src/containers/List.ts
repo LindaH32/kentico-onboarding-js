@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { List } from '../components/List';
+import { List as ListComponent } from '../components/List';
 import { fetchItems, postItem } from '../actionCreators/actionCreators';
 import { IAppState } from '../reducers/IAppState';
 import { IListDataProps, IListCallbackProps } from '../components/List';
@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch: Dispatch): IListCallbackProps => ({
   fetchItems: () => fetchItems(dispatch),
 });
 
-const ListContainer: React.ComponentClass<IListContainerProps> = connect(
+const List: React.ComponentClass<IListContainerProps> = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(List);
+)(ListComponent);
 
-export { ListContainer as List };
+export { List };

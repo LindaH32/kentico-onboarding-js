@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../reducers/IAppState';
-import { ListItem } from '../components/ListItem';
+import { ListItem as ListItemComponent } from '../components/ListItem';
 import { enableEditItem, deleteItem, saveChangesToItem, cancelChangesToItem } from '../actionCreators/actionCreators';
 import { itemViewModel } from '../models/itemViewModel';
 import { IListItemDataProps, IListItemCallbackProps } from '../components/ListItem';
@@ -26,9 +26,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProp
   onCancel: () => dispatch(cancelChangesToItem(ownProps.itemId)),
 });
 
-const ListItemContainer: React.ComponentClass<IListItemContainerProps> = connect(
+const ListItem: React.ComponentClass<IListItemContainerProps> = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListItem);
+)(ListItemComponent);
 
-export { ListItemContainer as ListItem };
+export { ListItem };

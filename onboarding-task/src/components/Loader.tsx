@@ -1,7 +1,8 @@
-import * as React from 'react';;
+import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { List } from '../containers/List';
 
-interface ILoaderDataProps {
+export interface ILoaderDataProps {
   isFetching: boolean;
 }
 
@@ -11,7 +12,7 @@ const Loader: React.StatelessComponent<ILoaderDataProps> = ({
   if (isFetching) {
     return <img src={require('../../assets/running_spinner.gif')} />;
   }
-  return <span></span>;
+  return <List/>;
 };
 
 Loader.displayName = 'Loader';
