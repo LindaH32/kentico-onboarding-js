@@ -35,7 +35,11 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
     return (
       <div className="form-inline">
         <input className="form-control" onChange={this._handleChange} value={this.state.text} />
-        <button disabled={ isInsertEmpty(this.state.text) }  type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
+        <button disabled={ isInsertEmpty(this.state.text) }
+                type="button"
+                className="btn btn-default"
+                onClick={this._handleClickAdd}>Add
+        </button>
       </div>
     );
   }
