@@ -6,7 +6,7 @@ import { Loader as LoaderComponent } from '../components/Loader';
 import { fetchItems } from '../actionCreators/actionCreators';
 
 const mapStateToProps = (state: IAppState, _ownProps: ILoaderDataProps): ILoaderDataProps => ({
-  isFetching: state.isFetching,
+  isFetching: state.list.isFetching,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): ILoaderCallbackProps => ({

@@ -8,8 +8,8 @@ import { IListDataProps, IListCallbackProps } from '../components/List';
 interface IListContainerProps {}
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({
-  itemIds: state.itemIds,
-  errorIds: state.errorIds,
+  itemIds: state.list.itemIds,
+  errorIds: state.list.errorIds,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbackProps => ({

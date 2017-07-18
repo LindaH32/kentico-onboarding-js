@@ -1,11 +1,5 @@
-import { OrderedSet, Map } from 'immutable';
-import { IItemData } from '../models/IItem';
+import { IListState } from './ListItemReducers/IListReducers';
 
 export interface IAppState {
-  itemIds: OrderedSet<string>;
-  items: Map<string, IItemData>;
-  isFetching: boolean;
-  isPosting: boolean;
-  errors: Map<string, string>;
-  errorIds: OrderedSet<string>;
+  list: IListState;
 }
