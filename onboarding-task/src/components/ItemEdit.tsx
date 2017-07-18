@@ -54,11 +54,7 @@ class ItemEdit extends React.PureComponent<ItemProps, IItemEditState> {
         <span className="form-inline">{this.props.item.index}.
           <input autoFocus className="form-control" value={this.state.text} onChange={this._handleOnChange} />
           <span>
-            <button disabled={isInsertEmpty(this.state.text)}
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={this._handleOnSave}>
-              Save</button>
+            <button disabled={isInsertEmpty(this.state.text)} type="button" className="btn btn-primary" onClick={this._handleOnSave}>Save</button>
             <button type="button" className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
             <button type="button" className="btn btn-danger" onClick={this.props.onDelete}>Delete</button>
           </span>
