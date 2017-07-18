@@ -1,23 +1,38 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { List } from '../containers/List';
+import { IAction } from '../actionCreators/IAction';
 
 export interface ILoaderDataProps {
   isFetching: boolean;
 }
 
-const Loader: React.StatelessComponent<ILoaderDataProps> = ({
-    isFetching,
-  }) => {
-  if (isFetching) {
-    return <img src={require('../../assets/running_spinner.gif')} />;
-  }
-  return <List/>;
-};
+export interface  ILoaderCallbackProps {
+  fetchItems: () => Promise<IAction>;
+}
 
-Loader.displayName = 'Loader';
-Loader.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-};
+type LoaderProps = ILoaderDataProps & ILoaderCallbackProps;
+
+class Loader extends React.PureComponent<LoaderProps>{
+  static displayName = 'Loader';
+  static propTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    fetchItems: PropTypes.func.isRequired,
+  };
+
+  constructor(props: LoaderProps) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchItems();
+    console.log('Loader.tsx: ');
+  }
+
+  render() {
+    return this.props.isFetching ?
+      <img src={require('../../assets/running_spinner.gif')} /> : <List/>;
+  }
+}
 
 export { Loader };
