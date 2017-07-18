@@ -5,8 +5,18 @@ import { IItemData } from '../../src/models/IItem';
 
 describe('Correctly resolves fetchItems: ', () => {
   const items = [
-    { id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', text: 'text' },
-    { id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', text: 'giraffe' },
+    {
+      id: '98dbde18-639e-49a6-8e51-603ceb2ae92d',
+      text: 'text',
+      creationTime: '2017-07-18T11:35:46.794Z',
+      updateTime: '2017-08-18T11:37:31.806Z'
+    },
+    {
+      id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe',
+      text: 'giraffe',
+      creationTime: '2017-07-18T11:35:50.128Z',
+      updateTime: '2017-08-18T11:37:31.806Z'
+    },
   ];
 
   const fetchSuccess = () => Promise.resolve({ json: ((): Promise<Partial<IItemData>[]> => Promise.resolve(items)) });

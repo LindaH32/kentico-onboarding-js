@@ -5,8 +5,8 @@ import { IItemData } from '../../src/models/IItem';
 
 describe('Correctly resolves postItem: ', () => {
   const items = [
-    { id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', text: 'text' },
-    { id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', text: 'giraffe' },
+    { id: '98dbde18-639e-49a6-8e51-603ceb2ae92d', text: 'text', isEdited: false },
+    { id: '1c353e0a-5481-4c31-bd2e-47e1baf84dbe', text: 'giraffe', isEdited: false },
   ];
   const postSuccess = () => Promise.resolve({ json: (): Promise<Partial<IItemData>[]> => Promise.resolve(items) });
   const postFailImmediately = () => Promise.reject(new Error('Items could not be posted'));
