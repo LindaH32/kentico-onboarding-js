@@ -1,6 +1,6 @@
 import { OrderedSet } from 'immutable';
-import { ADD_ITEM, DELETE_ITEM } from '../../src/constants/actionTypes.ts';
-import { itemIdsReducer } from '../../src/reducers/ListItemReducers/itemIdsReducer.ts';
+import { ADD_ITEM, DELETE_ITEM } from '../../../../src/constants/actionTypes.ts';
+import { itemIdsReducer } from '../../../../src/reducers/ListItemReducers/itemsReducers/itemIdsReducer.ts';
 
 describe('Correctly adds and removes item Ids: ', () => {
   const fakeId = '23456899-df58-1bbf-1j8p-4asd582z69d8';

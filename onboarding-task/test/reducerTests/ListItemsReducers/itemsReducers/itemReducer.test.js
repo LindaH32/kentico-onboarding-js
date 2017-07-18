@@ -1,7 +1,7 @@
-import { Item } from '../../src/models/Item.ts';
-import { enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../src/actionCreators/actionCreators.ts';
-import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
-import { itemReducer } from '../../src/reducers/ListItemReducers/itemReducer.ts';
+import { Item } from '../../../../src/models/Item.ts';
+import { enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../../../src/actionCreators/actionCreators.ts';
+import { addItemFactory } from '../../../../src/actionCreators/addItemFactory.ts';
+import { itemReducer } from '../../../../src/reducers/ListItemReducers/itemsReducers/itemReducer.ts';
 
 describe('Correctly creates separate item reducers', () => {
   const id = '82xc89c4-s58s-55s6-2z57-10sd5w8a6h12';

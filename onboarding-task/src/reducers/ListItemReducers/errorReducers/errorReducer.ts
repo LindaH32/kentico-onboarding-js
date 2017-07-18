@@ -1,10 +1,10 @@
 import { Map } from 'immutable';
-import { IAction } from '../actionCreators/IAction';
+import { IAction } from '../../../actionCreators/IAction';
 import {
   FETCH_ITEMS_FAILURE,
   POST_ITEM_FAILURE,
   DISMISS_ERROR,
-} from '../constants/actionTypes';
+} from '../../../constants/actionTypes';
 const errorReducer = (state: Map<string, string> = Map<string, string>(), action: IAction) => {
   switch (action.type) {
     case DISMISS_ERROR:

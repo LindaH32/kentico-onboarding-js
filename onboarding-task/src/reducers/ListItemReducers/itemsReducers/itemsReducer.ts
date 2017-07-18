@@ -7,10 +7,10 @@ import {
   CANCEL_CHANGES_TO_ITEM,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS,
-} from '../../constants/actionTypes';
-import { IAction } from '../../actionCreators/IAction';
-import { IItem, IItemData } from '../../models/IItem';
-import { Item } from '../../models/Item';
+} from '../../../constants/actionTypes';
+import { IAction } from '../../../actionCreators/IAction';
+import { IItem, IItemData } from '../../../models/IItem';
+import { Item } from '../../../models/Item';
 import { itemReducer } from './itemReducer';
 
 const itemsReducer = (state: Map<string, IItem> =

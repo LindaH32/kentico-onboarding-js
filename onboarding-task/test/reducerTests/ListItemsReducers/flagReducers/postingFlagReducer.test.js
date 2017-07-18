@@ -1,5 +1,5 @@
-import { postingFlagReducer } from '../../src/reducers/postingFlagReducer.ts';
-import { ADD_ITEM, POST_ITEM_SUCCESS, POST_ITEM_FAILURE } from '../../src/constants/actionTypes.ts';
+import { postingFlagReducer } from '../../../../src/reducers/ListItemReducers/flagReducers/postingFlagReducer.ts';
+import { ADD_ITEM, POST_ITEM_SUCCESS, POST_ITEM_FAILURE } from '../../../../src/constants/actionTypes.ts';
 
 describe('Correctly changes the post items flag', () => {
   it('changes the postingFlag when trying to post items to true', () => {

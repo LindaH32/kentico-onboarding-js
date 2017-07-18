@@ -3,8 +3,8 @@ import {
   FETCH_ITEMS_FAILURE,
   POST_ITEM_FAILURE,
   DISMISS_ERROR,
-} from '../constants/actionTypes';
-import { IAction } from '../actionCreators/IAction';
+} from '../../../constants/actionTypes';
+import { IAction } from '../../../actionCreators/IAction';
 
 const errorIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {

@@ -1,6 +1,6 @@
 import { OrderedSet } from 'immutable';
-import { FETCH_ITEMS_FAILURE, POST_ITEM_FAILURE, DISMISS_ERROR } from '../../src/constants/actionTypes.ts';
-import { errorIdsReducer } from '../../src/reducers/errorIdsReducer.ts';
+import { FETCH_ITEMS_FAILURE, POST_ITEM_FAILURE, DISMISS_ERROR } from '../../../../src/constants/actionTypes.ts';
+import { errorIdsReducer } from '../../../../src/reducers/ListItemReducers/errorReducers/errorIdsReducer.ts';
 
 describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {
   const fakeErrorId = '23456899-df58-1bbf-1j8p-4asd582z69d8';
