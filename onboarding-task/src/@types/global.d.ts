@@ -6,7 +6,8 @@ import { IAction } from '../actionCreators/IAction';
 
 declare global {
   type DispatchAction = (action: IAction ) => IAction;
-  type DispatchThunk = (thunkAction: (dispatch: DispatchAction) => Promise<IAction>) => Promise<IAction>;
+  type DispatchThunk = (thunkAction: (dispatch: DispatchAction) => Promise<IAction>) =>
+    Promise<IAction>;
   type Dispatch = DispatchAction & DispatchThunk;
 
   type ResponseWithJson = {

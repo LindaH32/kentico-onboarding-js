@@ -16,7 +16,8 @@ const DisplayError: React.StatelessComponent<IDisplayErrorDataProps & IDisplayEr
   }) => (
   <div className="alert alert-danger">
     <strong>Something went wrong:</strong> {error}
-    <button onClick={onDismissClick} type="button" className="pull-right btn btn-default btn-xs glyphicon glyphicon-remove" />
+    <button onClick={onDismissClick} type="button"
+            className="pull-right btn btn-default btn-xs glyphicon glyphicon-remove" />
   </div>
 );
 
