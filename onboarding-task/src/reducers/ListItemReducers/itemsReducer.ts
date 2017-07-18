@@ -13,7 +13,8 @@ import { IItem, IItemData } from '../../models/IItem';
 import { Item } from '../../models/Item';
 import { itemReducer } from './itemReducer';
 
-const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: IAction): Map<string, IItem> => {
+const itemsReducer = (state: Map<string, IItem> =
+                        Map<string, IItem>(), action: IAction): Map<string, IItem> => {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
       const items = action
@@ -32,9 +33,11 @@ const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: 
       const updatedItem = itemReducer(currentItem, action);
 
       return state
-        .mapKeys((key: string) => (key === action.payload.oldId) ? updatedItem.id : key)
-        .toMap()
-        .set(updatedItem.id, updatedItem);
+        .mapEntries<string, IItem>((entry: [string, IItem]) =>
+          (entry[0] === action.payload.oldId)
+            ? [ updatedItem.id, updatedItem ]
+            : entry)
+        .toMap();
     }
 
     case DELETE_ITEM:
