@@ -75,9 +75,9 @@ export const fetchItems = fetchItemsFactory({
   fetchBegin: requestItems,
   success: succeedToFetchItems,
   error: failToFetchItems,
-  fetch: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE),
+  fetch: () => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE)
+    .then(response => checkStatus(response)),
   idGenerator: createGuid,
-  checkStatus: checkStatus,
 });
 
 export const postItem = postItemFactory({
