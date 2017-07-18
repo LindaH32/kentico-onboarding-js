@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { fetchItemsFactory } from '../../src/actionCreators/fetchItemsFactory';
+import { fetchItemsFactory } from '../../src/actionCreators/internal/fetchItemsFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 import { IItemData } from '../../src/models/IItem';
 

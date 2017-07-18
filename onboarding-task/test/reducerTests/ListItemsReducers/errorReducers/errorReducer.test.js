@@ -1,5 +1,9 @@
 import { Map } from 'immutable';
-import { dismissError, failToPostItems, failToFetchItems } from '../../../../src/actionCreators/actionCreators.ts';
+import { dismissError } from '../../../../src/actionCreators/actionCreators.ts';
+import {
+  failToPostItems,
+  failToFetchItems,
+} from '../../../../src/actionCreators/internal/basicActionCreators.ts';
 import { errorReducer } from '../../../../src/reducers/ListItemReducers/errorReducers/errorReducer.ts';
 
 describe('Error reducer works correctly with errors', () => {

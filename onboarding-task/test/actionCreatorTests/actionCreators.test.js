@@ -3,13 +3,15 @@ import {
   enableEditItem,
   saveChangesToItem,
   cancelChangesToItem,
+} from '../../src/actionCreators/actionCreators.ts';
+import {
   requestItems,
   succeedToFetchItems,
   failToFetchItems,
   succeedToPostItem,
   failToPostItems,
-} from '../../src/actionCreators/actionCreators.ts';
-import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
+} from '../../src/actionCreators/internal/basicActionCreators.ts';
+import { addItemFactory } from '../../src/actionCreators/internal/addItemFactory.ts';
 import {
   ADD_ITEM,
   DELETE_ITEM,

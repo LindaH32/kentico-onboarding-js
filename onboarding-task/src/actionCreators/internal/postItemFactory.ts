@@ -1,5 +1,5 @@
-import { IAction } from './IAction';
-import { IItemData } from '../models/IItem';
+import { IAction } from '../IAction';
+import { IItemData } from '../../models/IItem';
 
 interface IPostItemsFactoryDependencies {
   success: (json: object, oldId: string) => IAction;

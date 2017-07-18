@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { postItemFactory } from '../../src/actionCreators/postItemFactory';
+import { postItemFactory } from '../../src/actionCreators/internal/postItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 import { IItemData } from '../../src/models/IItem';
 

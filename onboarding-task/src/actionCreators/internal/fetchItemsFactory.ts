@@ -1,4 +1,4 @@
-import { IAction } from './IAction';
+import { IAction } from '../IAction';
 
 interface IFetchItemsFactoryDependencies {
   fetchBegin: () => IAction;
