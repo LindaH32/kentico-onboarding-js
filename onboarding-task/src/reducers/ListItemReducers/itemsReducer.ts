@@ -19,7 +19,7 @@ const itemsReducer = (state: Map<string, IItem> = Map<string, IItem>(), action: 
       const items = action
         .payload
         .items
-        .map((value: Partial<IItemData>) =>
+        .map((value: IItemData) =>
           [value.id, new Item({ id: value.id, text: value.text, isEdited: false })]);
       return state.merge(items);
     }

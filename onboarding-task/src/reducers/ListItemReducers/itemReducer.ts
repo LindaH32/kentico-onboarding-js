@@ -26,7 +26,7 @@ const itemReducer = (state: IItem = new Item(), action: IAction): IItem => {
 
     case POST_ITEM_SUCCESS: {
       const item = action.payload.item;
-      const newItem: Partial<IItemData> = { id: item.id, text: item.text, isEdited: false };
+      const newItem: IItemData = { id: item.id, text: item.text, isEdited: false };
       return state.with(newItem);
     }
 

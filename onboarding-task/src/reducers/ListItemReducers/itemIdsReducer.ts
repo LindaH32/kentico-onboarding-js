@@ -11,7 +11,7 @@ const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
-      const itemIds = receivedObjects.map((value: Partial<IItemData>) => value.id);
+      const itemIds = receivedObjects.map((value: IItemData) => value.id);
 
       return state.merge(itemIds);
     }
