@@ -16,13 +16,11 @@ describe('Correctly resolves postItem: ', () => {
   const fakeReceived = () => fakeAction('success');
   const fakeFailed = () => fakeAction('error');
   const fakeAddItem = () => fakeAction('add');
-  const checkStatus = (response: Response) => response;
   const postItem = (post: () => Promise<{}>) => postItemFactory({
     success: fakeReceived,
     error: fakeFailed,
     itemAdd: fakeAddItem,
     post: post,
-    checkStatus: checkStatus,
   });
   const testCases = [
     { name: ' succeeding', post: postSuccess },

@@ -84,12 +84,11 @@ export const postItem = postItemFactory({
   itemAdd: addItem,
   success: succeedToPostItem,
   error: failToPostItems,
-  checkStatus: checkStatus,
   post: (body) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json; charset=utf-8'
     },
-  }),
+  }).then(response => checkStatus(response)),
 });
