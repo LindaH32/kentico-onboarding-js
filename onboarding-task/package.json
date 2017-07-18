@@ -41,7 +41,6 @@
     "http-proxy-middleware": "0.17.2",
     "jest": "^19.0.2",
     "json-loader": "0.5.4",
-    "memoizee": "^0.4.4",
     "mocha-each": "^1.1.0",
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
