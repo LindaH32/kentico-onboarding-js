@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IItemViewModel } from '../models/IItemViewModel';
 import { IAction } from '../actionCreators/IAction';
-import { isInsertEmpty } from './isInsertEmpty';
+import { isInsertEmpty } from '../utils/isInsertEmpty';
 
 interface IItemEditDataProps {
   item: IItemViewModel;

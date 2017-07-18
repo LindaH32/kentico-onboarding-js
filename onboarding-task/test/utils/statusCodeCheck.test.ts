@@ -1,4 +1,4 @@
-import { checkStatus } from '../../src/actionCreators/checkStatus';
+import { checkStatus } from '../../src/utils/checkStatus';
 
 describe('Correctly decides whether the response from the server is successful', () => {
 

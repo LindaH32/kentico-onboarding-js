@@ -17,7 +17,7 @@ import { fetchItemsFactory } from './fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
-import { checkStatus } from './checkStatus';
+import { checkStatus } from '../utils/checkStatus';
 
 export const addItem = addItemFactory(createGuid);
 

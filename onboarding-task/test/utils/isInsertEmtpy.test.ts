@@ -1,4 +1,4 @@
-import { isInsertEmpty } from '../../src/components/isInsertEmpty';
+import { isInsertEmpty } from '../../src/utils/isInsertEmpty';
 
 describe('Correctly decides whether the text in inserts-boxes is empty or not', () => {
   const invalidTexts = [

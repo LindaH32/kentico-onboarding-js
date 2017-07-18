@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../actionCreators/IAction';
-import { isInsertEmpty } from './isInsertEmpty';
+import { isInsertEmpty } from '../utils/isInsertEmpty';
 
 interface IAddItemCallbackProps {
   onAdd: (text: string) => Promise<IAction>;
