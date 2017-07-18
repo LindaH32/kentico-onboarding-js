@@ -9,13 +9,14 @@ interface IFetchItemsFactoryDependencies {
   checkStatus: (response: Response) => Response;
 }
 
-export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) => (dispatch: Dispatch): Promise<IAction> => {
-  dispatch(dependencies.fetchBegin());
-  const errorId = dependencies.idGenerator();
+export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) =>
+  (dispatch: Dispatch): Promise<IAction> => {
+    dispatch(dependencies.fetchBegin());
+    const errorId = dependencies.idGenerator();
 
-  return dependencies.fetch()
-    .then(response => dependencies.checkStatus(response))
-    .then(response => response.json())
-    .then(items => dispatch(dependencies.success(items)))
-    .catch((error: Error) => dispatch(dependencies.error(errorId, error)));
+    return dependencies.fetch()
+      .then(response => dependencies.checkStatus(response))
+      .then(response => response.json())
+      .then(items => dispatch(dependencies.success(items)))
+      .catch((error: Error) => dispatch(dependencies.error(errorId, error)));
 };

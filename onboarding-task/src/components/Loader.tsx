@@ -26,7 +26,6 @@ class Loader extends React.PureComponent<LoaderProps>{
 
   componentDidMount() {
     this.props.fetchItems();
-    console.log('Loader.tsx: ');
   }
 
   render() {
