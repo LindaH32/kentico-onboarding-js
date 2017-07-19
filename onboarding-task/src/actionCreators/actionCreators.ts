@@ -5,10 +5,22 @@ import { fetchItemsFactory } from './internal/fetchItemsFactory';
 import { createGuid } from '../utils/guidHelper';
 import { postItemFactory } from './internal/postItemFactory';
 import { checkStatus } from '../utils/checkStatus';
-import { requestItems, succeedToFetchItems, succeedToPostItem, failToFetchItems, failToPostItems  } from './internal/basicActionCreators';
+import {
+  requestItems,
+  succeedToFetchItems,
+  succeedToPostItem,
+  failToFetchItems,
+  failToPostItems,
+} from './internal/basicActionCreators';
 import { IItemData } from '../models/IItem';
 
-export { saveChangesToItem, cancelChangesToItem, deleteItem, dismissError, enableEditItem  } from './internal/basicActionCreators';
+export {
+  saveChangesToItem,
+  cancelChangesToItem,
+  deleteItem,
+  dismissError,
+  enableEditItem,
+} from './internal/basicActionCreators';
 
 export const addItem = addItemFactory(createGuid);
 
