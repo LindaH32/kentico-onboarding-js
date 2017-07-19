@@ -4,10 +4,11 @@ import { IAppState } from '../reducers/IAppState';
 import { ILoaderCallbackProps, ILoaderDataProps } from '../components/Loader';
 import { Loader as LoaderComponent } from '../components/Loader';
 import { fetchItems } from '../actionCreators/actionCreators';
+import { List } from './List';
 
 const mapStateToProps = (state: IAppState, _ownProps: ILoaderDataProps): ILoaderDataProps => ({
   isFetching: state.list.isFetching,
-  wrappedComponent: _ownProps.wrappedComponent,
+  wrappedComponent: React.createElement(List),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): ILoaderCallbackProps => ({
