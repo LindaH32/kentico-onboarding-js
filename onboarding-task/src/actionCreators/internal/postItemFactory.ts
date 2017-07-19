@@ -1,11 +1,11 @@
-import { IAction } from './IAction';
-import { IItemData } from '../models/IItem';
+import { IAction } from '../IAction';
+import { IItemData } from '../../models/IItem';
 
 interface IPostItemsFactoryDependencies {
   success: (json: object, oldId: string) => IAction;
   error: (id: string, error: Error) => IAction;
   itemAdd: (text: string) => IAction;
-  post: (body: Partial<IItemData>) => Promise<ResponseWithJson>;
+  post: (body: Partial<IItemData>) => Promise<Response>;
 }
 
 export const postItemFactory = (dependencies: IPostItemsFactoryDependencies) => (text: string) => ((dispatch: Dispatch): Promise<IAction> => {
@@ -14,5 +14,4 @@ export const postItemFactory = (dependencies: IPostItemsFactoryDependencies) => 
       .then(response => response.json())
       .then(item => dispatch(dependencies.success(item, clientId)))
       .catch((error: Error) => dispatch(dependencies.error(clientId, error)));
-  }
-);
+});

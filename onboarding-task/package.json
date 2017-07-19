@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@types/immutable": "^3.8.7",
     "@types/isomorphic-fetch": "0.0.34",
     "@types/jest": "^18.1.1",
     "@types/memoizee": "^0.4.1",
@@ -12,9 +11,7 @@
     "@types/react": "^15.0.0",
     "@types/react-dom": "^0.14.20",
     "@types/react-redux": "^4.4.38",
-    "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.0",
-    "@types/redux-thunk": "^2.1.0",
     "autoprefixer": "6.5.1",
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "babel-core": "6.17.0",
@@ -44,7 +41,6 @@
     "http-proxy-middleware": "0.17.2",
     "jest": "^19.0.2",
     "json-loader": "0.5.4",
-    "memoizee": "^0.4.4",
     "mocha-each": "^1.1.0",
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
@@ -64,7 +60,6 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
     "bootstrap": "^3.3.7",
     "es6-promise": "^4.1.0",
     "immutable": "^3.8.1",
@@ -77,7 +72,6 @@
     "react-logger": "^1.1.0",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
-    "redux-devtools": "^3.3.2",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "ts-jest": "^19.0.0"

@@ -9,6 +9,7 @@ interface IDeleteItemFactoryDependencies {
 
 export const deleteItemFactory = (dependencies: IDeleteItemFactoryDependencies) => (id: string) => ((dispatch: Dispatch): Promise<IAction> => {
     dispatch(dependencies.itemRemove(id));
+
     return dependencies.deleteItem(id)
       .then(response => response.json())
       .then(item => dispatch(dependencies.success(item)))

@@ -1,6 +1,10 @@
 import { Map } from 'immutable';
-import { dismissError, failToPostItems, failToFetchItems } from '../../src/actionCreators/actionCreators.ts';
-import { errorReducer } from '../../src/reducers/errorReducer.ts';
+import { dismissError } from '../../../../src/actionCreators/actionCreators.ts';
+import {
+  failToPostItems,
+  failToFetchItems,
+} from '../../../../src/actionCreators/internal/basicActionCreators.ts';
+import { errorReducer } from '../../../../src/reducers/ListItemReducers/errorReducers/errorReducer.ts';
 
 describe('Error reducer works correctly with errors', () => {
   const id = '82xc89c4-s58s-55s6-2z57-10sd5w8a6h12';
@@ -14,7 +18,6 @@ describe('Error reducer works correctly with errors', () => {
     const errorInit = 'init error';
     const error = new Error('init error');
     const expected = Map({ [fakeId]: errorInit });
-    console.log('errorReducer: ', expected);
     const failingFetchAction = failToFetchItems(fakeId, error);
 
     const tested = errorReducer(undefined, failingFetchAction);
@@ -28,7 +31,6 @@ describe('Error reducer works correctly with errors', () => {
     const errorInit = 'init error';
     const error = new Error('init error');
     const expected = Map({ [fakeId]: errorInit });
-    console.log('errorReducer: ', error.message);
     const failingFetchAction = failToPostItems(fakeId, error);
 
     const tested = errorReducer(undefined, failingFetchAction);

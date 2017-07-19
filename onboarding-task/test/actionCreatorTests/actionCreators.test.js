@@ -3,17 +3,19 @@ import {
   enableEditItem,
   saveChangesToItem,
   cancelChangesToItem,
-  requestItems,
-  succeedToFetchItems,
-  failToFetchItems,
-  succeedToPostItem,
-  failToPostItems,
   succeedToDeleteItem,
   failToDeleteItems,
   succeedToPutItem,
   failToPutItem,
 } from '../../src/actionCreators/actionCreators.ts';
-import { addItemFactory } from '../../src/actionCreators/addItemFactory.ts';
+import {
+  requestItems,
+  succeedToFetchItems,
+  failToFetchItems,
+  succeedToPostItem,
+  failToPostItems,
+} from '../../src/actionCreators/internal/basicActionCreators.ts';
+import { addItemFactory } from '../../src/actionCreators/internal/addItemFactory.ts';
 import {
   ADD_ITEM,
   DELETE_ITEM,

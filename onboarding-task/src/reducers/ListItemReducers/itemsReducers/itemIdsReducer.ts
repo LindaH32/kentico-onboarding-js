@@ -4,15 +4,15 @@ import {
   DELETE_ITEM,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS
-} from '../constants/actionTypes';
-import { IAction } from '../actionCreators/IAction';
-import { IItemData } from '../models/IItem';
+} from '../../../constants/actionTypes';
+import { IAction } from '../../../actionCreators/IAction';
+import { IItemData } from '../../../models/IItem';
 
 const itemIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS: {
       const receivedObjects = action.payload.items;
-      const itemIds = receivedObjects.map((value: Partial<IItemData>) => value.id);
+      const itemIds = receivedObjects.map((value: IItemData) => value.id);
 
       return state.merge(itemIds);
     }

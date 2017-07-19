@@ -11,9 +11,9 @@ interface IDisplayErrorContainerProps {
 
 const mapStateToProps = (state: IAppState, ownProps: IDisplayErrorContainerProps): IDisplayErrorDataProps => {
   const id = ownProps.errorId;
-  const errorById = state.errors.get(id);
+  const errorById = state.list.errors.get(id);
 
-  return { error: errorById };
+  return {error: errorById};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: IDisplayErrorContainerProps): IDisplayErrorCallbackProps => ({

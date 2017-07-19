@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../actionCreators/IAction';
+import { isInsertEmpty } from '../utils/isInsertEmpty';
 
 interface IAddItemCallbackProps {
   onAdd: (text: string) => Promise<IAction>;
@@ -30,13 +31,15 @@ class AddItem extends React.PureComponent<IAddItemCallbackProps, IAddItemState> 
     this.setState({ text: '' });
   };
 
-  _handleNonEmptyInsert = (text: string) => (text.trim() === '');
-
   render() {
     return (
       <div className="form-inline">
         <input className="form-control" onChange={this._handleChange} value={this.state.text} />
-        <button disabled={ this._handleNonEmptyInsert(this.state.text) }  type="button" className="btn btn-default" onClick={this._handleClickAdd}>Add</button>
+        <button disabled={ isInsertEmpty(this.state.text) }
+                type="button"
+                className="btn btn-default"
+                onClick={this._handleClickAdd}>Add
+        </button>
       </div>
     );
   }

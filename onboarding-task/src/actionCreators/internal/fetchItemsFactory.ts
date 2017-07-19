@@ -1,10 +1,10 @@
-import { IAction } from './IAction';
+import { IAction } from '../IAction';
 
 interface IFetchItemsFactoryDependencies {
   fetchBegin: () => IAction;
   success: (json: object) => IAction;
   error: (id: string, error: Error) => IAction;
-  fetch: () => Promise<ResponseWithJson>;
+  fetch: () => Promise<Response>;
   idGenerator: () => string;
 }
 

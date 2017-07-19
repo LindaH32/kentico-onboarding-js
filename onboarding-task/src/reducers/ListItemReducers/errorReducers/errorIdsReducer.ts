@@ -5,8 +5,8 @@ import {
   DISMISS_ERROR,
   DELETE_ITEM_FAILURE,
   PUT_ITEM_FAILURE,
-} from '../constants/actionTypes';
-import { IAction } from '../actionCreators/IAction';
+} from '../../../constants/actionTypes';
+import { IAction } from '../../../actionCreators/IAction';
 
 const errorIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {
@@ -16,10 +16,8 @@ const errorIdsReducer = (state: OrderedSet<string> = OrderedSet<string>(), actio
     case POST_ITEM_FAILURE:
     case FETCH_ITEMS_FAILURE:
     case PUT_ITEM_FAILURE:
-    case DELETE_ITEM_FAILURE: {
-        console.log('errorIdsReducer state: ', state);
+    case DELETE_ITEM_FAILURE:
         return state.add(action.payload.id);
-      }
 
     default:
       return state;

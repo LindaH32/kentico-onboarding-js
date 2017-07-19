@@ -1,7 +1,7 @@
-import { IAction } from '../actionCreators/IAction';
+import { IAction } from '../../../actionCreators/IAction';
 import {
   POST_ITEM_FAILURE, ADD_ITEM, POST_ITEM_SUCCESS
-} from '../constants/actionTypes';
+} from '../../../constants/actionTypes';
 
 const postingFlagReducer = (state = false, action: IAction): boolean => {
   switch (action.type) {

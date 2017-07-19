@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../reducers/IAppState';
-import { ListItem } from '../components/ListItem';
+import { ListItem as ListItemComponent} from '../components/ListItem';
 import {
   enableEditItem,
   deleteItem,
@@ -18,10 +18,10 @@ interface IListItemContainerProps {
 
 const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps => {
   const id = ownProps.itemId;
-  const itemById = state.items.get(id);
+  const itemById = state.list.items.get(id);
   const indexedItem = itemViewModel(itemById, ownProps.index);
 
-  return { item: indexedItem };
+  return {item: indexedItem};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbackProps => ({
@@ -31,9 +31,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProp
   onCancel: () => dispatch(cancelChangesToItem(ownProps.itemId)),
 });
 
-const ListItemContainer: React.ComponentClass<IListItemContainerProps> = connect(
+const ListItem: React.ComponentClass<IListItemContainerProps> = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListItem);
+)(ListItemComponent);
 
-export { ListItemContainer as ListItem };
+export { ListItem };
