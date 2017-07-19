@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../reducers/IAppState';
-import { ILoaderCallbackProps, ILoaderDataProps } from '../components/Loader';
-import { Loader as LoaderComponent } from '../components/Loader';
+import { ILoaderCallbackProps, ILoaderDataProps } from '../components/ListOrSpinner';
+import { Loader as ListOrSpinner } from '../components/ListOrSpinner';
 import { fetchItems } from '../actionCreators/actionCreators';
 
 const mapStateToProps = (state: IAppState, _ownProps: ILoaderDataProps): ILoaderDataProps => ({
@@ -16,6 +16,6 @@ const mapDispatchToProps = (dispatch: Dispatch): ILoaderCallbackProps => ({
 const Loader: React.ComponentClass<ILoaderDataProps> = connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoaderComponent);
+)(ListOrSpinner);
 
 export { Loader };
