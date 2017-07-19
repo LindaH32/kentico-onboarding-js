@@ -2,26 +2,26 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../actionCreators/IAction';
 
-export interface IListOrSpinnerDataProps {
+export interface IListingOrSpinnerDataProps {
   isFetching: boolean;
   wrappedComponent: any;
 }
 
-export interface  IListOrSpinnerCallbackProps {
+export interface  IListingOrSpinnerCallbackProps {
   fetchItems: () => Promise<IAction>;
 }
 
-type ListOrSpinnerProps = IListOrSpinnerDataProps & IListOrSpinnerCallbackProps;
+type ListingOrSpinnerProps = IListingOrSpinnerDataProps & IListingOrSpinnerCallbackProps;
 
-class ListOrSpinner extends React.PureComponent<ListOrSpinnerProps>{
-  static displayName = 'ListOrSpinner';
+class ListingOrSpinner extends React.PureComponent<ListingOrSpinnerProps> {
+  static displayName = 'ListingOrSpinner';
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     wrappedComponent: PropTypes.element.isRequired,
     fetchItems: PropTypes.func.isRequired,
   };
 
-  constructor(props: ListOrSpinnerProps) {
+  constructor(props: ListingOrSpinnerProps) {
     super(props);
   }
 
@@ -35,4 +35,4 @@ class ListOrSpinner extends React.PureComponent<ListOrSpinnerProps>{
   }
 }
 
-export { ListOrSpinner };
+export { ListingOrSpinner };

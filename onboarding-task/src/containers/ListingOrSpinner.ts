@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../reducers/IAppState';
-import { IListOrSpinnerCallbackProps, IListOrSpinnerDataProps } from '../components/ListingOrSpinner';
-import { ListOrSpinner as ListingOrSpinnerComponent } from '../components/ListingOrSpinner';
+import { IListingOrSpinnerCallbackProps, IListingOrSpinnerDataProps } from '../components/ListingOrSpinner';
+import { ListingOrSpinner as ListingOrSpinnerComponent } from '../components/ListingOrSpinner';
 import { fetchItems } from '../actionCreators/actionCreators';
 
-const mapStateToProps = (state: IAppState, _ownProps: IListOrSpinnerDataProps): IListOrSpinnerDataProps => ({
+const mapStateToProps = (state: IAppState, _ownProps: IListingOrSpinnerDataProps): IListingOrSpinnerDataProps => ({
   isFetching: state.list.isFetching,
   wrappedComponent: _ownProps.wrappedComponent,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): IListOrSpinnerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): IListingOrSpinnerCallbackProps => ({
   fetchItems: () => fetchItems(dispatch),
 });
 
-const ListOrSpinner: React.ComponentClass<IListOrSpinnerDataProps> = connect(
+const ListingOrSpinner: React.ComponentClass<IListingOrSpinnerDataProps> = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ListingOrSpinnerComponent);
 
-export { ListOrSpinner };
+export { ListingOrSpinner };
