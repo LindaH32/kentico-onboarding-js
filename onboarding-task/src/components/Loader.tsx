@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { List } from '../containers/List';
 import { IAction } from '../actionCreators/IAction';
 
 export interface ILoaderDataProps {
   isFetching: boolean;
+  wrappedComponent: any;
 }
 
 export interface  ILoaderCallbackProps {
@@ -13,10 +13,11 @@ export interface  ILoaderCallbackProps {
 
 type LoaderProps = ILoaderDataProps & ILoaderCallbackProps;
 
-class Loader extends React.PureComponent<LoaderProps>{
+class Loader extends React.PureComponent<LoaderProps> {
   static displayName = 'Loader';
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
+    wrappedComponent: PropTypes.element.isRequired,
     fetchItems: PropTypes.func.isRequired,
   };
 
@@ -30,7 +31,7 @@ class Loader extends React.PureComponent<LoaderProps>{
 
   render() {
     return this.props.isFetching ?
-      <img src={require('../../assets/running_spinner.gif')} /> : <List/>;
+      <img src={require('../../assets/running_spinner.gif')} /> : this.props.wrappedComponent;
   }
 }
 

@@ -14,10 +14,24 @@ import { putItemFactory } from './putItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
 import { postItemFactory } from './internal/postItemFactory';
 import { checkStatus } from '../utils/checkStatus';
-import { saveChangesToItem, removeItem, requestItems, succeedToFetchItems, succeedToPostItem, failToFetchItems, failToPostItems  } from './internal/basicActionCreators';
+import {
+  saveChangesToItem,
+  removeItem,
+  requestItems,
+  succeedToFetchItems,
+  succeedToPostItem,
+  failToFetchItems,
+  failToPostItems,
+} from './internal/basicActionCreators';
 import { IItemData } from '../models/IItem';
 
-export { saveChangesToItem, cancelChangesToItem, removeItem, dismissError, enableEditItem  } from './internal/basicActionCreators';
+export {
+  saveChangesToItem,
+  cancelChangesToItem,
+  removeItem,
+  dismissError,
+  enableEditItem,
+} from './internal/basicActionCreators';
 
 export const addItem = addItemFactory(createGuid);
 

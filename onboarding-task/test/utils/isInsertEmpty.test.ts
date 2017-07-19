@@ -6,7 +6,7 @@ describe('Correctly decides whether the text in inserts-boxes is empty or not', 
     {name: 'spaced text', text: '      '},
   ];
 
-  const validTets = [
+  const validTest = [
     {name: 'standard text', text: 'standard text'},
     {name: 'spaced beginning and valid text', text: '      text'},
     {name: 'valid text and spaced ending ', text: 'text      '},
@@ -22,7 +22,7 @@ describe('Correctly decides whether the text in inserts-boxes is empty or not', 
     });
   });
 
-  validTets.forEach(testCase => {
+  validTest.forEach(testCase => {
     it('returns false when ' + testCase.name + ' is inserted', () => {
       const actual = isInsertEmpty(testCase.text);
 
