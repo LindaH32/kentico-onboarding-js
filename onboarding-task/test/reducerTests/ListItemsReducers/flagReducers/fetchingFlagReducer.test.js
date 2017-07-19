@@ -1,5 +1,9 @@
 import { fetchingFlagReducer } from '../../../../src/reducers/ListItemReducers/flagReducers/fetchingFlagReducer.ts';
-import { FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS, FETCH_ITEMS_FAILURE } from '../../../../src/constants/actionTypes.ts';
+import {
+  FETCH_ITEMS_REQUEST,
+  FETCH_ITEMS_SUCCESS,
+  FETCH_ITEMS_FAILURE,
+} from '../../../../src/constants/actionTypes.ts';
 
 describe('Correctly changes the fetch items flag', () => {
   it('changes the fetchingFlag when requesting items to true', () => {

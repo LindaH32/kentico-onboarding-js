@@ -1,5 +1,11 @@
 import { OrderedSet } from 'immutable';
-import { FETCH_ITEMS_FAILURE, POST_ITEM_FAILURE, PUT_ITEM_FAILURE, DELETE_ITEM_FAILURE, DISMISS_ERROR } from '../../../../src/constants/actionTypes.ts';
+import {
+  FETCH_ITEMS_FAILURE,
+  POST_ITEM_FAILURE,
+  PUT_ITEM_FAILURE,
+  DELETE_ITEM_FAILURE,
+  DISMISS_ERROR,
+} from '../../../../src/constants/actionTypes.ts';
 import { errorIdsReducer } from '../../../../src/reducers/ListItemReducers/errorReducers/errorIdsReducer.ts';
 
 describe('ErrorIds Reducer correctly adds and removes  error Ids: ', () => {

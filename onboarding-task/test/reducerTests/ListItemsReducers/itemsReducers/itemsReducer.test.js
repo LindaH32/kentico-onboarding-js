@@ -1,6 +1,11 @@
 import { Map } from 'immutable';
 import { Item } from '../../../../src/models/Item.ts';
-import { removeItem, enableEditItem, saveChangesToItem, cancelChangesToItem } from '../../../../src/actionCreators/actionCreators.ts';
+import {
+  removeItem,
+  enableEditItem,
+  saveChangesToItem,
+  cancelChangesToItem,
+} from '../../../../src/actionCreators/actionCreators.ts';
 import { addItemFactory } from '../../../../src/actionCreators/internal/addItemFactory.ts';
 import { itemsReducer } from '../../../../src/reducers/ListItemReducers/itemsReducers/itemsReducer.ts';
 
