@@ -9,6 +9,10 @@ import {
   POST_ITEM_SUCCESS,
   POST_ITEM_FAILURE,
   DISMISS_ERROR,
+  DELETE_ITEM_SUCCESS,
+  DELETE_ITEM_FAILURE,
+  PUT_ITEM_FAILURE,
+  PUT_ITEM_SUCCESS,
 } from '../../constants/actionTypes';
 import { IAction } from '../IAction';
 
@@ -60,4 +64,24 @@ export const failToPostItems = (id: string, error: Error): IAction => ({
 export const dismissError = (id: string): IAction => ({
   type: DISMISS_ERROR,
   payload: { id },
+});
+
+export const succeedToDeleteItem = (json: object): IAction => ({
+  type: DELETE_ITEM_SUCCESS,
+  payload: { item: json },
+});
+
+export const failToDeleteItems = (id: string, error: Error): IAction => ({
+  type: DELETE_ITEM_FAILURE,
+  payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not deleted')},
+});
+
+export const succeedToPutItem = (json: object): IAction => ({
+  type: PUT_ITEM_SUCCESS,
+  payload: { item: json },
+});
+
+export const failToPutItem = (id: string, error: Error): IAction => ({
+  type: PUT_ITEM_FAILURE,
+  payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not updated')},
 });

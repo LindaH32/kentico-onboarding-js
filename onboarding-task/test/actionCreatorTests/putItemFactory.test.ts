@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { putItemFactory } from '../../src/actionCreators/putItemFactory';
+import { putItemFactory } from '../../src/actionCreators/internal/putItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 import { IItemData } from '../../src/models/IItem';
 

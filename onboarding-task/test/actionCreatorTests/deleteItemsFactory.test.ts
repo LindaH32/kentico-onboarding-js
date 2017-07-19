@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { deleteItemFactory } from '../../src/actionCreators/deleteItemFactory';
+import { deleteItemFactory } from '../../src/actionCreators/internal/deleteItemFactory';
 import { IAction } from '../../src/actionCreators/IAction';
 import { IItemData } from '../../src/models/IItem';
 

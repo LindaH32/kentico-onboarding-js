@@ -1,4 +1,4 @@
-import { IAction } from './IAction';
+import { IAction } from '../IAction';
 
 interface IDeleteItemFactoryDependencies {
   success: (json: object) => IAction;

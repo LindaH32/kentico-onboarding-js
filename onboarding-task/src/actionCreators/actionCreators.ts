@@ -1,16 +1,9 @@
 import * as fetch from 'isomorphic-fetch';
-import {
-  DELETE_ITEM_SUCCESS,
-  DELETE_ITEM_FAILURE,
-  PUT_ITEM_SUCCESS,
-  PUT_ITEM_FAILURE,
-} from '../constants/actionTypes';
 import { SERVER_ROUTE, LIST_ITEM_ROUTE } from '../constants/routes';
 import { addItemFactory } from './internal/addItemFactory';
 import { createGuid } from '../utils/guidHelper';
-import { IAction } from './IAction';
-import { deleteItemFactory } from './deleteItemFactory';
-import { putItemFactory } from './putItemFactory';
+import { deleteItemFactory } from './internal/deleteItemFactory';
+import { putItemFactory } from './internal/putItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
 import { postItemFactory } from './internal/postItemFactory';
 import { checkStatus } from '../utils/checkStatus';
@@ -22,6 +15,10 @@ import {
   succeedToPostItem,
   failToFetchItems,
   failToPostItems,
+  succeedToDeleteItem,
+  failToDeleteItems,
+  failToPutItem,
+  succeedToPutItem,
 } from './internal/basicActionCreators';
 import { IItemData } from '../models/IItem';
 
@@ -57,36 +54,16 @@ const postItemsFactoryDependencies = {
   }).then(response => checkStatus(response)),
 };
 
-export const succeedToDeleteItem = (json: object): IAction => ({
-  type: DELETE_ITEM_SUCCESS,
-  payload: { item: json },
-});
-
-export const failToDeleteItems = (id: string, error: Error): IAction => ({
-  type: DELETE_ITEM_FAILURE,
-  payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not deleted')},
-});
-
-export const deleteItem = deleteItemFactory({
+const deleteItemFactoryDependencies = {
   itemRemove: removeItem,
   success: succeedToDeleteItem,
   error: failToDeleteItems,
   deleteItem: (id: string) => fetch(SERVER_ROUTE + LIST_ITEM_ROUTE + '/' + id, {
     method: 'DELETE',
   }).then(response => checkStatus(response)),
-});
+};
 
-export const succeedToPutItem = (json: object): IAction => ({
-  type: PUT_ITEM_SUCCESS,
-  payload: { item: json },
-});
-
-export const failToPutItem = (id: string, error: Error): IAction => ({
-  type: PUT_ITEM_FAILURE,
-  payload: {id, errorMessage: error.message || ('The item with the id ' + id + ' was not updated')},
-});
-
-export const putItem = putItemFactory({
+const putItemFactoryDependencies = {
   itemUpdate: saveChangesToItem,
   success: succeedToPutItem,
   error: failToPutItem,
@@ -97,7 +74,11 @@ export const putItem = putItemFactory({
       'Content-Type': 'application/json; charset=utf-8'
     },
   }).then(response => checkStatus(response)),
-});
+};
+
+export const deleteItem = deleteItemFactory(deleteItemFactoryDependencies);
+
+export const putItem = putItemFactory(putItemFactoryDependencies);
 
 export const fetchItems = fetchItemsFactory(fetchItemsFactoryDependencies);
 
