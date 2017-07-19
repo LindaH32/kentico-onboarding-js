@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../reducers/IAppState';
-import { IListingOrSpinnerCallbackProps, IListingOrSpinnerDataProps } from '../components/Loader';
-import { ListingOrSpinner as ListingOrSpinnerComponent } from '../components/Loader';
+import { ILoaderCallbackProps, ILoaderDataProps } from '../components/Loader';
+import { Loader as LoaderComponent } from '../components/Loader';
 import { fetchItems } from '../actionCreators/actionCreators';
 
-const mapStateToProps = (state: IAppState, _ownProps: IListingOrSpinnerDataProps): IListingOrSpinnerDataProps => ({
+const mapStateToProps = (state: IAppState, _ownProps: ILoaderDataProps): ILoaderDataProps => ({
   isFetching: state.list.isFetching,
   wrappedComponent: _ownProps.wrappedComponent,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): IListingOrSpinnerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): ILoaderCallbackProps => ({
   fetchItems: () => fetchItems(dispatch),
 });
 
-const ListingOrSpinner: React.ComponentClass<IListingOrSpinnerDataProps> = connect(
+const ListWithLoader: React.ComponentClass<ILoaderDataProps> = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ListingOrSpinnerComponent);
+)(LoaderComponent);
 
-export { ListingOrSpinner };
+export { ListWithLoader };
