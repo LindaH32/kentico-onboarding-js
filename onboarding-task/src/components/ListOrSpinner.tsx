@@ -3,24 +3,24 @@ import * as PropTypes from 'prop-types';
 import { List } from '../containers/List';
 import { IAction } from '../actionCreators/IAction';
 
-export interface ILoaderDataProps {
+export interface IListOrSpinnerDataProps {
   isFetching: boolean;
 }
 
-export interface  ILoaderCallbackProps {
+export interface  IListOrSpinnerCallbackProps {
   fetchItems: () => Promise<IAction>;
 }
 
-type LoaderProps = ILoaderDataProps & ILoaderCallbackProps;
+type ListOrSpinnerProps = IListOrSpinnerDataProps & IListOrSpinnerCallbackProps;
 
-class Loader extends React.PureComponent<LoaderProps>{
-  static displayName = 'Loader';
+class ListOrSpinner extends React.PureComponent<ListOrSpinnerProps>{
+  static displayName = 'ListOrSpinner';
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     fetchItems: PropTypes.func.isRequired,
   };
 
-  constructor(props: LoaderProps) {
+  constructor(props: ListOrSpinnerProps) {
     super(props);
   }
 
@@ -34,4 +34,4 @@ class Loader extends React.PureComponent<LoaderProps>{
   }
 }
 
-export { Loader };
+export { ListOrSpinner };
