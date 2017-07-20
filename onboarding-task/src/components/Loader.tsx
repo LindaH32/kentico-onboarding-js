@@ -5,10 +5,11 @@ import { IAction } from '../actionCreators/IAction';
 export interface ILoaderDataProps {
   isFetching: boolean;
   wrappedComponent: any;
+  spinner: string;
 }
 
 export interface  ILoaderCallbackProps {
-  fetchItems: () => Promise<IAction>;
+  doAfterMounting: () => Promise<IAction>;
 }
 
 type LoaderProps = ILoaderDataProps & ILoaderCallbackProps;
@@ -16,9 +17,10 @@ type LoaderProps = ILoaderDataProps & ILoaderCallbackProps;
 class Loader extends React.PureComponent<LoaderProps> {
   static displayName = 'Loader';
   static propTypes = {
+    spinner: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
     wrappedComponent: PropTypes.element.isRequired,
-    fetchItems: PropTypes.func.isRequired,
+    doAfterMounting: PropTypes.func.isRequired,
   };
 
   constructor(props: LoaderProps) {
@@ -26,12 +28,13 @@ class Loader extends React.PureComponent<LoaderProps> {
   }
 
   componentDidMount() {
-    this.props.fetchItems();
+    this.props.doAfterMounting();
   }
 
   render() {
-    return this.props.isFetching ?
-      <img src={require('../../assets/running_spinner.gif')} /> : this.props.wrappedComponent;
+    return this.props.isFetching
+        ? <img src={this.props.spinner} />
+        : this.props.wrappedComponent;
   }
 }
 
